@@ -51,13 +51,13 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            // 'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
         ]);
 
         return User::create([
-            'name' => $request->name,
+            // 'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -66,7 +66,7 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->user()->tokens->each(function ($token, $key) {
-            $token->delete();
+            $token->revoke();
         });
 
         return response()->json('Logged out successfully', 200);
