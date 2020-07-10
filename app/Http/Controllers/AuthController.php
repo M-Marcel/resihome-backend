@@ -53,7 +53,7 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
-            'user_role' => 'required|integer|max:2',
+            'user_role' => 'string',
             'firstname' => 'string',
             'lastname' => 'string',
             'postal_code' => 'string',
@@ -64,8 +64,8 @@ class AuthController extends Controller
             // 'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'user_role_id' => $request->user_role,
             'firstname' => $request->firstname,
+            'user_role_id' => $request->user_role,
             'lastname' => $request->lastname,
             'postal_code' => $request->postal_code,
             'phone_number' => $request->phone_number,
