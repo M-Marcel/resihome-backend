@@ -53,22 +53,22 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
-            'user_role' => 'string',
-            'firstname' => 'string',
-            'lastname' => 'string',
-            'postal_code' => 'string',
-            'phone_number' => 'string',
+            'userRole' => 'required|integer',
+            'firstName' => 'string',
+            'lastName' => 'string',
+            'postalCode' => 'string',
+            'phoneNumber' => 'string',
         ]);
 
         return User::create([
             // 'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'firstname' => $request->firstname,
-            'user_role_id' => $request->user_role,
-            'lastname' => $request->lastname,
-            'postal_code' => $request->postal_code,
-            'phone_number' => $request->phone_number,
+            'firstname' => $request->firstName,
+            'user_role_id' => $request->userRole,
+            'lastname' => $request->lastName,
+            'postal_code' => $request->postalCode,
+            'phone_number' => $request->phoneNumber,
         ]);
     }
 
