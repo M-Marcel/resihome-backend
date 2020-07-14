@@ -30,3 +30,9 @@ Route::middleware('auth:api')->group(function () {
 // Route::get('/customer', function () {
 //     //
 // })->middleware('auth:api-customers');
+// Route::get('/api/properties', 'PropertyController@index');
+// Route::post('/properties', 'PropertyController@store');
+// Route::patch('/properties/{property}', 'PropertyController@update');
+// Route::delete('/properties/{property}', 'PropertyController@destroy');
+
+Route::apiResource('/property', 'PropertyController');
