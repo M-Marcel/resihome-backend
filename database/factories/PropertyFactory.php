@@ -25,7 +25,7 @@ $factory->define(Property::class, function (Faker $faker){
 
 
         'agent_id' => 1,
-        'category' => 'For sale by owner',
+        'category' => 'New home',
         'address' => $faker->address,
         'location' => 'Houston',
         'description' => $faker->text,
