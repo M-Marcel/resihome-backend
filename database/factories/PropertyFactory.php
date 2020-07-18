@@ -23,7 +23,7 @@ $factory->define(Property::class, function (Faker $faker){
 
 
         'agent_id' => 1,
-        'category' => 'Short term lease',
+        'category' => 'Long term lease',
         'address' => $faker->address,
         'location' => 'Houston',
         'description' => $faker->text,
