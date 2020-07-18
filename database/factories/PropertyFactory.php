@@ -17,13 +17,15 @@ use Illuminate\Support\Str;
 
 // 'status' => 'sold',
 
+// factory(App\Property::class, 5)->create();
+
 $factory->define(Property::class, function (Faker $faker){
     return [
 
 
 
         'agent_id' => 1,
-        'category' => 'Long term lease',
+        'category' => 'For sale by owner',
         'address' => $faker->address,
         'location' => 'Houston',
         'description' => $faker->text,
