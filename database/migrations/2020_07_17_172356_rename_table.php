@@ -32,7 +32,7 @@ class RenameTable extends Migration
         Schema::rename('tbl_property_school', 'school');
         Schema::rename('tbl_region', 'region');
         Schema::rename('tbl_review', 'review');
-        Schema::rename('tbl_school', 'school');
+        Schema::rename('tbl_school', 'schools');
     }
 
     /**
