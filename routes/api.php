@@ -35,4 +35,10 @@ Route::middleware('auth:api')->group(function () {
 // Route::patch('/properties/{property}', 'PropertyController@update');
 // Route::delete('/properties/{property}', 'PropertyController@destroy');
 
-Route::apiResource('/property', 'PropertyController');
+// Route::apiResource('/property', 'PropertyController');
+Route::apiResource('/propertyown', 'Property\ByOwnerPropertyController');
+Route::apiResource('/propertysale', 'Property\ForSalePropertyController');
+Route::apiResource('/propertynew', 'Property\NewHomePropertyController');
+Route::apiResource('/propertylong', 'Property\LongLeasePropertyController');
+Route::apiResource('/propertyshort', 'Property\ShortLeasePropertyController');
+// Route::get('/propertTest', 'PropertyController@test');

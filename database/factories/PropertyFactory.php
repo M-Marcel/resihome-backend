@@ -6,18 +6,31 @@ use App\Property;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
+// BUY
+// 'Home for sale';
+// 'New home';
+// 'For sale by owner';
+
+// RENT
+// 'Long term lease';
+// 'Short term lease';
+
+// 'status' => 'sold',
+
 $factory->define(Property::class, function (Faker $faker){
     return [
-       
+
 
 
         'agent_id' => 1,
+        'category' => 'Short term lease',
         'address' => $faker->address,
         'location' => 'Houston',
         'description' => $faker->text,
         'type' => 'Single Family',
         'sub_type' => 'other',
         'home_type' => 'other',
+        'status' => 1,
         'bedroom' =>4,
         'bathroom' =>4,
         'half_bedroom' =>2,

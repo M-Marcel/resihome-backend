@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Property;
 
+use App\Http\Controllers\Controller;
 use App\Property;
 use Illuminate\Http\Request;
 use App\Http\Resources\PropertyResource;
 
-class PropertyController extends Controller
+class NewHomePropertyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,14 +16,9 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::all();
-        return response([ 'properties' => PropertyResource::collection($properties), 'message' => 'Retrieved successfully'], 200);
-    }
 
-    public function test()
-    {
-        $properties = Property::where('category', 'For sale by owner')->get();
-        return response([ 'properties' => PropertyResource::collection($properties), 'message' => 'Retrieved successfully'], 206);
+        $properties = Property::where('category', 'New home')->get();
+        return response([ 'properties' => PropertyResource::collection($properties), 'message' => 'Retrieved successfully'], 200);
     }
 
     /**
@@ -44,7 +40,7 @@ class PropertyController extends Controller
      */
     public function show(Property $property)
     {
-        return response([ 'property' => new PropertyResource($property), 'message' => 'Retrieved successfully'], 200);
+        //
     }
 
     /**
@@ -67,8 +63,6 @@ class PropertyController extends Controller
      */
     public function destroy(Property $property)
     {
-        $property->delete();
-
-        return response(['message' => 'Property Deleted successfully']);
+        //
     }
 }
