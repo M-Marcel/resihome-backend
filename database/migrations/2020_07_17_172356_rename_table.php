@@ -13,7 +13,7 @@ class RenameTable extends Migration
      */
     public function up()
     {
-        Schema::rename('tbl-admin', 'admin');
+        // Schema::rename('tbl-admin', 'admin');
         Schema::rename('tbl_agent', 'agent');
         Schema::rename('tbl_building', 'building');
         Schema::rename('tbl_agent_location', 'agent_location');
