@@ -36,6 +36,9 @@ Route::middleware('auth:api')->group(function () {
 // Route::delete('/properties/{property}', 'PropertyController@destroy');
 
 // Route::apiResource('/property', 'PropertyController');
+Route::get('/property1own', 'Property\ByOwnerPropertyController@store');
+
+
 Route::apiResource('/propertyown', 'Property\ByOwnerPropertyController');
 Route::apiResource('/propertysale', 'Property\ForSalePropertyController');
 Route::apiResource('/propertynew', 'Property\NewHomePropertyController');
