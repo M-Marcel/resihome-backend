@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Property;
 
 use App\Http\Controllers\Controller;
 use App\Property;
+use App\Property_image;
 use Illuminate\Http\Request;
 use App\Http\Resources\PropertyResource;
+use App\Http\Resources\PropertyImageResource;
 use Intervention\Image\Facades\Image;
 
 $propertyType = 'For sale by owner';
@@ -19,8 +21,25 @@ class ByOwnerPropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::where('category', 'For sale by owner')->get();
-        return response([ 'properties' => PropertyResource::collection($properties), 'message' => 'Retrieved successfully'], 200);
+        $properties = Property::where('category', 'Home for sale')->get();
+        // $properties = Property::where('category', 'For sale by owner')->get();
+        dd($properties[]['id']);
+        // $propertyArray = PropertyResource::collection($properties);
+        // dd($propertyArray[]);
+
+        foreach ($properties as $id) {
+            // dd($id['id']);
+            $iid = $id['id'];
+            $propertyImage = Property_image::where('property_id', 71)->get();
+            dd($propertyImage);
+        //    return PropertyImageResource::collection($propertyImage);
+        };
+
+        // return response([
+        //     'properties' => PropertyResource::collection($properties),
+        //     'image' => PropertyImageResource::collection($propertyImage),
+        //     'message' => 'Retrieved successfully'
+        // ], 200);
     }
 
     /**
@@ -359,29 +378,30 @@ class ByOwnerPropertyController extends Controller
 
     }
 
-    public function search(){
 
-            $search = $_GET['query'];
-            $propertyResult = Property::where(function($query) use ($search){
-            $query->where('location', 'LIKE', "%$search%")
-            ->orWhere('type', 'LIKE', "%$search%")
-            ->orWhere('size', 'LIKE', "%$search%")
-            ->orWhere('main_prize', 'LIKE', "%$search%")
-            ->orWhere('lot_size', 'LIKE', "%$search%")
-            ->orWhere('size_prize', 'LIKE', "%$search%")
-            ->orWhere('bathroom', 'LIKE', "%$search%")
-            ->orWhere('bedroom', 'LIKE', "%$search%")
-            ->orWhere('three_quarter_bedroom', 'LIKE', "%$search%")
-            ->orWhere('estimate_prize', 'LIKE', "%$search%")
-            ->orWhere('transport', 'LIKE', "%$search%")
-            ->orWhere('shopping', 'LIKE', "%$search%")
-            ->orWhere('swimmimg_pool', 'LIKE', "%$search%")
-            ->orWhere('gym', 'LIKE', "%$search%")
-            ->orWhere('city', 'LIKE', "%$search%")
-            ->orWhere('water', 'LIKE', "%$search%")
-            ->orWhere('park', 'LIKE', "%$search%")->get();
+    public function search(Request $request){
 
-        });
+            $propertyResult = Property::where('cooling', 'LIKE', "%$request->get('cooling')%")->get();
+            // ->orWhere('school', 'LIKE', "%$request->get('school')%")
+            // ->orWhere('size', 'LIKE', "%$request->get('location')%")
+            // ->orWhere('main_prize', 'LIKE', "%$request->get('location')%")
+            // ->orWhere('lot_size', 'LIKE', "%$request->get('location')%")
+            // ->orWhere('size_prize', 'LIKE', "%$request->get('location')%")
+            // ->orWhere('bathroom', 'LIKE', "%$request->get('location')%")
+            // ->orWhere('bedroom', 'LIKE', "%$request->get('location')%")
+            // ->orWhere('three_quarter_bedroom', 'LIKE', "%$request->get('location')%")
+            // ->orWhere('estimate_prize', 'LIKE', "%$request->get('location')%")
+            // ->orWhere('transport', 'LIKE', "%$request->get('location')%")
+            // ->orWhere('shopping', 'LIKE', "%$request->get('location')%")
+            // ->orWhere('swimmimg_pool', 'LIKE', "%$request->get('location')%")
+            // ->orWhere('gym', 'LIKE', "%$request->get('location')%")
+            // ->orWhere('city', 'LIKE', "%$request->get('location')%")
+            // ->orWhere('water', 'LIKE', "%$request->get('location')%")
+            // ->orWhere('park', 'LIKE', "%$request->get('location')%")->get();
+
+        // dd($propertyResult);
+
+        return response([ 'propertyResult' => PropertyResource::collection($propertyResult), 'message' => 'Retrieved successfully'], 200);
 
     //     if ($search = \Request::get('q')){
     //         $propertyResult = Property::where(function($query) use ($search){
@@ -406,7 +426,8 @@ class ByOwnerPropertyController extends Controller
     //     });
     // }
 
-        return $propertyResult;
+        // return $propertyResult;
+        // return response([ 'propertyResult' => PropertyResource::collection($propertyResult), 'message' => 'Retrieved successfully'], 200);
     }
 
     /**
@@ -415,9 +436,11 @@ class ByOwnerPropertyController extends Controller
      * @param  \App\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Property $property)
+    public function destroy($id)
     {
-        //
+        $property = Property::findOrFail($id);
+        $property->property_images()->delete();
+        $property->delete();
     }
 
 

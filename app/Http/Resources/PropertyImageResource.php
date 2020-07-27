@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Resources;
-
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Property;
 
-class PropertyResource extends JsonResource
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class PropertyImageResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -13,15 +13,19 @@ class PropertyResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
+
+    function __construct(Property $model)
+    {
+        parent::__construct($model);
+    }
     public function toArray($request)
     {
         // return [
         //     'data' => parent::toArray($request),
-        //     // 'image' => Property::with('propertyImages')->;
+        //     'image' => $this->property->property_imagess,
 
 
         // ];
-
         return parent::toArray($request);
     }
 }

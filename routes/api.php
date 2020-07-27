@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-});
 
+});
+// Route::patch('/users', 'UserController@update');
 
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
@@ -25,6 +26,17 @@ Route::post('/register', 'AuthController@register');
 
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', 'AuthController@logout');
+});
+
+Route::middleware('auth:api')->group(function () {
+    Route::apiResource('/users', 'UserController');
+    Route::apiResource('/image', 'Property\PropertyImageController');
+    Route::apiResource('/propertyown', 'Property\ByOwnerPropertyController');
+    Route::apiResource('/propertysale', 'Property\ForSalePropertyController');
+    Route::apiResource('/propertynew', 'Property\NewHomePropertyController');
+    Route::apiResource('/propertylong', 'Property\LongLeasePropertyController');
+    Route::apiResource('/propertyshort', 'Property\ShortLeasePropertyController');
+
 });
 
 // Route::get('/customer', function () {
@@ -38,12 +50,28 @@ Route::middleware('auth:api')->group(function () {
 // Route::apiResource('/property', 'PropertyController');
 Route::post('/property1own', 'Property\ByOwnerPropertyController@update');
 // Route::get('/property1own', 'Property\ByOwnerPropertyController@store');
-Route::get('/findProperty', 'Property\ByOwnerPropertyController@search');
+Route::post('/findProperty', 'Property\ByOwnerPropertyController@search');
+// Route::post('/findProperty', 'Property\ByOwnerPropertyController@search');
+// Route::post('/image', 'Property\PropertyImageController@store');
+// Route::post('/image/{$id}', 'Property\PropertyImageController@update');
 
 
-Route::apiResource('/propertyown', 'Property\ByOwnerPropertyController');
-Route::apiResource('/propertysale', 'Property\ForSalePropertyController');
-Route::apiResource('/propertynew', 'Property\NewHomePropertyController');
-Route::apiResource('/propertylong', 'Property\LongLeasePropertyController');
-Route::apiResource('/propertyshort', 'Property\ShortLeasePropertyController');
+
+
+Route::get('/propertyown11', 'Property\ByOwnerPropertyController@index');
+Route::get('/propertyown', 'Property\ByOwnerPropertyController@index');
+Route::get('/propertysale', 'Property\ForSalePropertyController@index');
+Route::get('/propertynew', 'Property\NewHomePropertyController@index');
+Route::get('/propertylong', 'Property\LongLeasePropertyController@index');
+Route::get('/propertyshort', 'Property\ShortLeasePropertyController@index');
+
 // Route::get('/propertTest', 'PropertyController@test');
+
+// Route::post('/test', function()
+// {
+//   // Run controller and method
+//   $app = app();
+//   $controller = $app->get('Property\PropertyImageController');
+//   return $controller->callAction('destroy', $parameters = array('id'=> 21));
+
+// });
