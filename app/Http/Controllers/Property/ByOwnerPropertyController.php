@@ -381,23 +381,25 @@ class ByOwnerPropertyController extends Controller
 
     public function search(Request $request){
 
-            $propertyResult = Property::where('cooling', 'LIKE', "%$request->get('cooling')%")
-            ->orWhere('school', 'LIKE', "%$request->get('school')%")
-            ->orWhere('size', 'LIKE', "%$request->get('location')%")
-            ->orWhere('main_prize', 'LIKE', "%$request->get('location')%")
-            ->orWhere('lot_size', 'LIKE', "%$request->get('location')%")
-            ->orWhere('size_prize', 'LIKE', "%$request->get('location')%")
-            ->orWhere('bathroom', 'LIKE', "%$request->get('location')%")
-            ->orWhere('bedroom', 'LIKE', "%$request->get('location')%")
-            ->orWhere('three_quarter_bedroom', 'LIKE', "%$request->get('location')%")
-            ->orWhere('estimate_prize', 'LIKE', "%$request->get('location')%")
-            ->orWhere('transport', 'LIKE', "%$request->get('location')%")
-            ->orWhere('shopping', 'LIKE', "%$request->get('location')%")
-            ->orWhere('swimmimg_pool', 'LIKE', "%$request->get('location')%")
-            ->orWhere('gym', 'LIKE', "%$request->get('location')%")
-            ->orWhere('city', 'LIKE', "%$request->get('location')%")
-            ->orWhere('water', 'LIKE', "%$request->get('location')%")
-            ->orWhere('park', 'LIKE', "%$request->get('location')%")->get();
+            $propertyResult = Property::where('location', 'LIKE', "%$request->get('cooling')%")
+            ->orWhere('category', 'LIKE', "%$request->get('propertyType')%")
+            ->orWhere('description', 'LIKE', "%$request->get('keywords')%")
+            ->orWhere('school', 'LIKE', "%$request->get('schools')%")
+            ->orWhere('size', 'LIKE', "%$request->get('minPropertySizes')%")
+            ->orWhere('size', 'LIKE', "%$request->get('maxPropertySizes')%")
+            ->orWhere('main_prize', 'LIKE', "%$request->get('minPrize')%")
+            ->orWhere('main_prize', 'LIKE', "%$request->get('maxPrize')%")
+            ->orWhere('lot_size', 'LIKE', "%$request->get('minCarSpaces')%")
+            ->orWhere('lot_size', 'LIKE', "%$request->get('maxCarSpaces')%")
+            ->orWhere('bathroom', 'LIKE', "%$request->get('minBathrooms')%")
+            ->orWhere('bathroom', 'LIKE', "%$request->get('maxBathrooms')%")
+            ->orWhere('bedroom', 'LIKE', "%$request->get('maxBedrooms')%")
+            ->orWhere('bedroom', 'LIKE', "%$request->get('minBedrooms')%")
+            ->orWhere('three_quarter_bedroom', 'LIKE', "%$request->get('minBedrooms')%")
+            ->orWhere('transport', 'LIKE', "%$request->get('transport')%")
+            ->orWhere('shopping', 'LIKE', "%$request->get('shooping')%")
+            ->orWhere('swimmimg_pool', 'LIKE', "%$request->get('swimmingPool')%")
+            ->orWhere('gym', 'LIKE', "%$request->get('gym')%")->get();
 
         // dd($propertyResult);
 
