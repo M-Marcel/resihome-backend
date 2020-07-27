@@ -17,12 +17,12 @@ use Illuminate\Support\Str;
 
 // 'status' => 'sold',
 
-// factory(App\Property::class, 5)->create();
+// factory(App\Property::class, 11)->create();
 
 $factory->define(Property::class, function (Faker $faker){
     return [
         'agent_id' => 1,
-        'category' => 'For sale by owner',
+        'category' => 'Long term lease',
         'address' => $faker->address,
         'location' => 'Houston',
         'description' => $faker->text,
@@ -59,7 +59,7 @@ $factory->define(Property::class, function (Faker $faker){
         'water' => 1,
         'park' => 1,
         'cordinate' => '12 LAT 1.4 NW',
-        'image' => 'building3.jpg',
+        'image' => 'buiding4.jpg',
     ];
     // 'image' => 'buiding1.jpg',
 });
