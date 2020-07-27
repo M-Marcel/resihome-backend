@@ -21,9 +21,6 @@ use Illuminate\Support\Str;
 
 $factory->define(Property::class, function (Faker $faker){
     return [
-
-
-
         'agent_id' => 1,
         'category' => 'Home for sale',
         'address' => $faker->address,
@@ -62,5 +59,7 @@ $factory->define(Property::class, function (Faker $faker){
         'water' => 1,
         'park' => 1,
         'cordinate' => '12 LAT 1.4 NW',
+        'image' => 'buiding1.jpg',
     ];
+    // 'image' => 'buiding1.jpg',
 });

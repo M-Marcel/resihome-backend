@@ -194,7 +194,7 @@ class ByOwnerPropertyController extends Controller
             $property->property_images()->create([
                 'original' => 'MainImage.png',
             ]);
-
+            // 640×436 image thumbnail
         // if (request()->has('image')){
         //     $property->property_images()->create([
         //         'original' => request()->image->store('propertyImages', 'public'),
@@ -381,23 +381,23 @@ class ByOwnerPropertyController extends Controller
 
     public function search(Request $request){
 
-            $propertyResult = Property::where('cooling', 'LIKE', "%$request->get('cooling')%")->get();
-            // ->orWhere('school', 'LIKE', "%$request->get('school')%")
-            // ->orWhere('size', 'LIKE', "%$request->get('location')%")
-            // ->orWhere('main_prize', 'LIKE', "%$request->get('location')%")
-            // ->orWhere('lot_size', 'LIKE', "%$request->get('location')%")
-            // ->orWhere('size_prize', 'LIKE', "%$request->get('location')%")
-            // ->orWhere('bathroom', 'LIKE', "%$request->get('location')%")
-            // ->orWhere('bedroom', 'LIKE', "%$request->get('location')%")
-            // ->orWhere('three_quarter_bedroom', 'LIKE', "%$request->get('location')%")
-            // ->orWhere('estimate_prize', 'LIKE', "%$request->get('location')%")
-            // ->orWhere('transport', 'LIKE', "%$request->get('location')%")
-            // ->orWhere('shopping', 'LIKE', "%$request->get('location')%")
-            // ->orWhere('swimmimg_pool', 'LIKE', "%$request->get('location')%")
-            // ->orWhere('gym', 'LIKE', "%$request->get('location')%")
-            // ->orWhere('city', 'LIKE', "%$request->get('location')%")
-            // ->orWhere('water', 'LIKE', "%$request->get('location')%")
-            // ->orWhere('park', 'LIKE', "%$request->get('location')%")->get();
+            $propertyResult = Property::where('cooling', 'LIKE', "%$request->get('cooling')%")
+            ->orWhere('school', 'LIKE', "%$request->get('school')%")
+            ->orWhere('size', 'LIKE', "%$request->get('location')%")
+            ->orWhere('main_prize', 'LIKE', "%$request->get('location')%")
+            ->orWhere('lot_size', 'LIKE', "%$request->get('location')%")
+            ->orWhere('size_prize', 'LIKE', "%$request->get('location')%")
+            ->orWhere('bathroom', 'LIKE', "%$request->get('location')%")
+            ->orWhere('bedroom', 'LIKE', "%$request->get('location')%")
+            ->orWhere('three_quarter_bedroom', 'LIKE', "%$request->get('location')%")
+            ->orWhere('estimate_prize', 'LIKE', "%$request->get('location')%")
+            ->orWhere('transport', 'LIKE', "%$request->get('location')%")
+            ->orWhere('shopping', 'LIKE', "%$request->get('location')%")
+            ->orWhere('swimmimg_pool', 'LIKE', "%$request->get('location')%")
+            ->orWhere('gym', 'LIKE', "%$request->get('location')%")
+            ->orWhere('city', 'LIKE', "%$request->get('location')%")
+            ->orWhere('water', 'LIKE', "%$request->get('location')%")
+            ->orWhere('park', 'LIKE', "%$request->get('location')%")->get();
 
         // dd($propertyResult);
 
