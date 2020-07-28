@@ -13,4 +13,8 @@ class Property extends Model
     public function property_images(){
         return $this->hasMany(\App\Property_image::class);
     }
+
+    public function users(){
+        return $this->belongsToMany(User::class)->withTimestamps();
+    }
 }

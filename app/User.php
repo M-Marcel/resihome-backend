@@ -20,6 +20,9 @@ class User extends Authenticatable
         'name', 'email', 'password', 'user_role', 'firstname','lastname', 'postal_code', 'phone_number', 'city', 'country', 'state'
     ];
 
+    public function properties(){
+        return $this->belongsToMany(Property::class)->withTimestamps();
+    }
     /**
      * The attributes that should be hidden for arrays.
      *

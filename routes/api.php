@@ -37,6 +37,10 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('/propertylong', 'Property\LongLeasePropertyController');
     Route::apiResource('/propertyshort', 'Property\ShortLeasePropertyController');
 
+    Route::get('/savedProperties', 'Property\PropertyUserController@index');
+    Route::get('/save/{id}', 'Property\PropertyUserController@save');
+    Route::get('/remove/{id}', 'Property\PropertyUserController@removeSaved');
+
 });
 
 // Route::get('/customer', function () {
