@@ -29,7 +29,65 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $request->validate([
+        //     'email' => 'string|email|max:255|unique:users',
+        //     'firstName' => 'string',
+        //     'lastName' => 'string',
+        //     'postalCode' => 'string',
+        //     'phoneNumber' => 'string',
+        //     'address' => 'string',
+        //     'city' => 'string',
+        //     'state' => 'string',
+        //     'country' => 'string',
+        //     'image' => 'sometimes|file|image|max:4000',
+        // ]);
+
+        // if($request->hasFile('image')){
+        //     // Get filename with the extension
+        //     $filenameWithExt = $request->file('image')->getClientOriginalName();
+        //     // Get just filename
+        //     $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+        //     // Get just ext
+        //     $extension = $request->file('image')->getClientOriginalExtension();
+        //     // Filename to store
+        //     $fileNameToStore= $filename.'_'.time().'.'.$extension;
+        //     // Upload Image
+        //     $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
+
+        //      // make thumbnails
+	    // $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
+        // $thumb = Image::make($request->file('image')->getRealPath());
+        // $thumb->resize(80, 80);
+        // $thumb->save('storage/images/'.$thumbStore);
+
+        // } else {
+        //     $fileNameToStore = 'noimage.jpg';
+        // }
+
+        // $user = new User([
+
+        // 'user_role' =>  2,
+        // 'password' =>  $request->get('password'),
+        // 'email' =>  $request->get('email'),
+        // 'firstname' =>  $request->get('firstName'),
+        // 'lastname' => $request->get('lastName'),
+        // 'postal_code' => $request->get('postalCode'),
+        // 'phone_number' => $request->get('phoneNumber'),
+        // 'address' => $request->get('address'),
+        // 'city' => $request->get('city'),
+        // 'state' => $request->get('state'),
+        // 'country' => $request->get('country')
+
+        //     ]);
+
+        // $user->save();
+
+        // return response([
+
+        //    'user' => $user,
+        //    'message' => 'User Created Successfully'
+
+        //     ]);
     }
 
     /**
@@ -51,10 +109,9 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    // public function update(Request $request, User $user)
     {
         $request->validate([
-            'email' => 'string|email|max:255|unique:users',
+            // 'email' => 'string|email|max:255|unique:users',
             'firstName' => 'string',
             'lastName' => 'string',
             'postalCode' => 'string',
@@ -63,23 +120,13 @@ class UserController extends Controller
             'city' => 'string',
             'state' => 'string',
             'country' => 'string',
-            'image' => 'sometimes|string',
+            'image' => 'sometimes|file|image|max:4000',
         ]);
 
         $user = User::find($id);
         // $user = User::find(auth()->user()->id);
-        $user->firstname =  $request->get('firstname');
-        $user->lastname = $request->get('lastname');
-        $user->postal_code = $request->get('postalCode');
-        $user->phone_number = $request->get('phoneNumber');
-        $user->address = $request->get('address');
-        $user->city = $request->get('city');
-        $user->state = $request->get('state');
-        $user->country = $request->get('country');
 
-
-          // Handle File Upload
-          if($request->hasFile('image')){
+        if($request->hasFile('image')){
             // Get filename with the extension
             $filenameWithExt = $request->file('image')->getClientOriginalName();
             // Get just filename
@@ -89,21 +136,44 @@ class UserController extends Controller
             // Filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             // Upload Image
-            $path = $request->file('image')->storeAs('public/users', $fileNameToStore);
+            $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
             // Delete file if exists
-            Storage::delete('public/users/'.$user->image);
+            Storage::delete('public/images/'.$user->image);
 
-            //Make thumbnails
-            $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
+	   //Make thumbnails
+	    $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
             $thumb = Image::make($request->file('image')->getRealPath());
             $thumb->resize(80, 80);
-            $thumb->save('storage/users/'.$thumbStore);
+            $thumb->save('storage/images/'.$thumbStore);
 
-          }
-          if($request->hasFile('image')){
+        }
+
+        $user->email =  $user['email'];
+        $user->password =  $user['password'];
+        $user->user_role =  $user['user_role'];
+        $user->firstname =  $request->get('firstName');
+        $user->firstname =  $request->get('firstName');
+        $user->lastname = $request->get('lastName');
+        $user->postal_code = $request->get('postalCode');
+        $user->phone_number = $request->get('phoneNumber');
+        $user->address = $request->get('address');
+        $user->city = $request->get('city');
+        $user->state = $request->get('state');
+        $user->country = $request->get('country');
+
+
+        if($request->hasFile('image')){
             $user->image = $fileNameToStore;
-            }
-            $user->save();
+            $user->thumbnail = $thumbStore;
+        }
+        $user->save();
+
+        return response([
+
+        'property' => $user,
+        'message' => 'User Updated Successfully'
+
+            ]);
 
 
         // $thumbnailPath = public_path().'/storage/users/thumbnail/';
@@ -127,7 +197,7 @@ class UserController extends Controller
 
         // $user->save();
 
-        return response($user, 200);
+        // return response($user, 200);
     }
 
     /**
