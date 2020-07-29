@@ -41,6 +41,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/savedProperties', 'Property\PropertyUserController@index');
     Route::get('/save/{id}', 'Property\PropertyUserController@save');
     Route::get('/remove/{id}', 'Property\PropertyUserController@removeSaved');
+    Route::get('/userproperty', 'PropertyController@index');
 
 });
 
@@ -70,7 +71,7 @@ Route::get('/propertynew', 'Property\NewHomePropertyController@index');
 Route::get('/propertylong', 'Property\LongLeasePropertyController@index');
 Route::get('/propertyshort', 'Property\ShortLeasePropertyController@index');
 
-// Route::get('/propertTest', 'PropertyController@test');
+Route::get('/property/{id}', 'PropertyController@show');
 
 // Route::post('/test', function()
 // {

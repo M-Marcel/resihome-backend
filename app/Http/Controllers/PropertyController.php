@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\PropertyResource;
 
 class PropertyController extends Controller
@@ -15,8 +16,8 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::all();
-        return response([ 'properties' => PropertyResource::collection($properties), 'message' => 'Retrieved successfully'], 200);
+        $properties = Property::where('owner_id', Auth::user()->id)->get();
+        return response([ 'properties' => PropertyResource::collection($properties), 'message' => 'User Properties Retrieved successfully'], 200);
     }
 
     public function test()
@@ -42,9 +43,10 @@ class PropertyController extends Controller
      * @param  \App\Property  $property
      * @return \Illuminate\Http\Response
      */
-    public function show(Property $property)
+    public function show($id)
     {
-        return response([ 'property' => new PropertyResource($property), 'message' => 'Retrieved successfully'], 200);
+        $property = Property::where('id', $id)->get();
+        return response([ 'property' => $property, 'message' => 'Property Retrieved successfully'], 200);
     }
 
     /**

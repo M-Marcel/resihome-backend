@@ -22,6 +22,7 @@ class UserController extends Controller
         return response($user);
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
