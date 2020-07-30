@@ -56,7 +56,7 @@ Route::middleware('auth:api')->group(function () {
 // Route::apiResource('/property', 'PropertyController');
 Route::post('/property1own', 'Property\ByOwnerPropertyController@update');
 // Route::get('/property1own', 'Property\ByOwnerPropertyController@store');
-Route::post('/findProperty', 'Property\ByOwnerPropertyController@search');
+// Route::post('/findProperty', 'Property\ByOwnerPropertyController@search');
 // Route::post('/findProperty', 'Property\ByOwnerPropertyController@search');
 // Route::post('/image', 'Property\PropertyImageController@store');
 // Route::post('/image/{$id}', 'Property\PropertyImageController@update');
@@ -72,6 +72,7 @@ Route::get('/propertylong', 'Property\LongLeasePropertyController@index');
 Route::get('/propertyshort', 'Property\ShortLeasePropertyController@index');
 
 Route::get('/property/{id}', 'PropertyController@show');
+Route::get('/search', 'PropertyController@search');
 
 // Route::post('/test', function()
 // {

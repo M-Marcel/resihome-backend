@@ -6,6 +6,7 @@ use App\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\PropertyResource;
+use Illuminate\Support\Facades\DB;
 
 class PropertyController extends Controller
 {
@@ -60,7 +61,120 @@ class PropertyController extends Controller
     {
         //
     }
+    public function search(Request $request){
 
+        $property = Property::query();
+        // $properties = DB::table('property')
+        //     ->where('description', 'like', '%'.$request->keywords.'%')
+        //     ->where('school', 'like', "%$request->schools%")
+        //     ->where('size', '<=', "%$request->minPropertySizes%")
+        //     ->where('main_prize', '<=', "%$request->minPrize%")
+        //     ->where('main_prize', '>=', "%$request->maxPrize%")
+        //     ->where('lot_size', '<=', "%$request->minCarSpaces%")
+        //     ->where('lot_size', '>=', "%$request->maxCarSpaces%")
+        //     ->where('bathroom', '<=', "%$request->minBathrooms%")
+        //     ->where('bathroom', '>=', '%'.$request->maxBedrooms.'%')
+        //     ->where('transport', 'like', "%$request->transport%")
+        //     ->where('shopping', 'like', "%$request->shooping%")
+        //     ->where('swimmimg_pool', 'like', "%$request->swimmingPool%")
+        //     ->where('gym', 'like', "%$request->gym%")
+        //     ->where('category', 'like', '%'.$request->propertyType.'%')->get();
+
+
+            if (!empty($request->propertyType)) {
+                $property = $property->where('category', 'like', '%'.$request->propertyType.'%');
+            }
+
+            if (!empty($request->gym)) {
+                $property = $property->where('gym', 'like', '%'.$request->gym.'%');
+            }
+
+            if (!empty($request->location)) {
+                $property = $property->where('location', 'like', '%'.$request->location.'%');
+            }
+
+            if (!empty($request->schools)) {
+                $property = $property->where('school', 'like', '%'.$request->schools.'%');
+            }
+
+            if (!empty($minPrize)) {
+                $property = $property->where('main_prize', '<=', '%'.$minPrize.'%');
+            }
+
+            if (!empty($maxPrize)) {
+                $property = $property->where('main_prize', '>=', '%'.$maxPrize.'%');
+            }
+
+            if (!empty($minPropertySizes)) {
+                $property = $property->where('size', '<=', '%'.$minPropertySizes.'%');
+            }
+
+            if (!empty($maxPropertySizes)) {
+                $property = $property->where('size', '>=', '%'.$maxPropertySizes.'%');
+            }
+
+            if (!empty($minCarSpaces)) {
+                $property = $property->where('lot_size', '<=', '%'.$minCarSpaces.'%');
+            }
+
+            if (!empty($maxCarSpaces)) {
+                $property = $property->where('lot_size', '>=', '%'.$maxCarSpaces.'%');
+            }
+
+            if (!empty($minBathrooms)) {
+                $property = $property->where('bathroom', '<=', '%'.$minBathrooms.'%');
+            }
+
+            if (!empty($maxBathrooms)) {
+                $property = $property->where('bathroom', '>=', '%'.$maxBathrooms.'%');
+            }
+
+            if (!empty($transports)) {
+                $property = $property->where('transport', '>=', '%'.$transports.'%');
+            }
+
+            if (!empty($shoppings)) {
+                $property = $property->where('shopping', '>=', '%'.$shoppings.'%');
+            }
+
+            if (!empty($swimmingPool)) {
+                $property = $property->where('swimmimg_pool', '>=', '%'.$swimmingPool.'%');
+            }
+
+            $properties = $property->get();
+
+
+        return response([
+            'Properties' => $properties,
+            'message' => 'Search Done'
+            ]);
+
+            // dd($properties);
+        // $properties = DB::table('property')
+        //     ->where('votes', '>', 100)
+        //     ->orWhere(function($query) {
+        //         $query->where('name', 'Abigail')
+        //               ->where('votes', '>', 50);
+        //     })
+        //     ->get();
+
+    //         $users = DB::table('users')->where([
+    //             ['status', '=', '1'],
+    //             ['subscribed', '<>', '1'],
+    //         ])->get();
+
+    //         $users = DB::table('users')
+    //             ->where('votes', '>=', 100)
+    //             ->get();
+
+    //         $users = DB::table('users')
+    //                         ->where('votes', '<>', 100)
+    //                         ->get();
+
+    //         $users = DB::table('users')
+    //                         ->where('name', 'like', 'T%')
+    //                         ->get();
+    }
     /**
      * Remove the specified resource from storage.
      *

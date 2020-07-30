@@ -72,7 +72,7 @@ class ForSalePropertyController extends Controller
             'city' => 'required|boolean',
             'water' => 'required|boolean',
             'park' => 'required|boolean',
-            'cordinate' => 'required',
+            // 'cordinate' => 'required',
             'image' => 'sometimes|file|image|max:5000',
 
         ]);
@@ -141,7 +141,7 @@ class ForSalePropertyController extends Controller
             'city' => $request->get('city'),
             'water' => $request->get('water'),
             'park' => $request->get('park'),
-            'cordinate' => $request->get('cordinate'),
+            'concierge' => $request->get('concierge'),
             'image' => $fileNameToStore,
             'thumbnail' => $thumbStore
         ]);
@@ -218,7 +218,7 @@ class ForSalePropertyController extends Controller
             'city' => 'required|boolean',
             'water' => 'required|boolean',
             'park' => 'required|boolean',
-            'cordinate' => 'required',
+            // 'cordinate' => 'required',
             'image' => 'sometimes|file|image|max:5000',
         ]);
 
@@ -287,7 +287,7 @@ class ForSalePropertyController extends Controller
         $property->city = $request->get('city');
         $property->water = $request->get('water');
         $property->park = $request->get('park');
-        $property->cordinate = $request->get('cordinate');
+        $property->concierge = $request->get('concierge');
 
         if($request->hasFile('image')){
             $property->image = $fileNameToStore;

@@ -75,7 +75,7 @@ class ByOwnerPropertyController extends Controller
             'city' => 'required|boolean',
             'water' => 'required|boolean',
             'park' => 'required|boolean',
-            'cordinate' => 'required',
+            // 'concierge' => 'required',
             'image' => 'sometimes|file|image|max:5000',
 
         ]);
@@ -144,7 +144,7 @@ class ByOwnerPropertyController extends Controller
             'city' => $request->get('city'),
             'water' => $request->get('water'),
             'park' => $request->get('park'),
-            'cordinate' => $request->get('cordinate'),
+            'concierge' => $request->get('concierge'),
             'image' => $fileNameToStore,
             'thumbnail' => $thumbStore
         ]);
@@ -221,7 +221,7 @@ class ByOwnerPropertyController extends Controller
             'city' => 'required|boolean',
             'water' => 'required|boolean',
             'park' => 'required|boolean',
-            'cordinate' => 'required',
+            // 'cordinate' => 'required',
             'image' => 'sometimes|file|image|max:5000',
         ]);
 
@@ -290,7 +290,7 @@ class ByOwnerPropertyController extends Controller
         $property->city = $request->get('city');
         $property->water = $request->get('water');
         $property->park = $request->get('park');
-        $property->cordinate = $request->get('cordinate');
+        $property->concierge = $request->get('concierge');
 
         if($request->hasFile('image')){
             $property->image = $fileNameToStore;
@@ -308,31 +308,31 @@ class ByOwnerPropertyController extends Controller
     }
 
 
-    public function search(Request $request){
+    // public function search(Request $request){
 
-            $propertyResult = Property::where('location', 'LIKE', "%$request->get('cooling')%")
-            ->orWhere('category', 'LIKE', "%$request->get('propertyType')%")
-            ->orWhere('description', 'LIKE', "%$request->get('keywords')%")
-            ->orWhere('school', 'LIKE', "%$request->get('schools')%")
-            ->orWhere('size', 'LIKE', "%$request->get('minPropertySizes')%")
-            ->orWhere('size', 'LIKE', "%$request->get('maxPropertySizes')%")
-            ->orWhere('main_prize', 'LIKE', "%$request->get('minPrize')%")
-            ->orWhere('main_prize', 'LIKE', "%$request->get('maxPrize')%")
-            ->orWhere('lot_size', 'LIKE', "%$request->get('minCarSpaces')%")
-            ->orWhere('lot_size', 'LIKE', "%$request->get('maxCarSpaces')%")
-            ->orWhere('bathroom', 'LIKE', "%$request->get('minBathrooms')%")
-            ->orWhere('bathroom', 'LIKE', "%$request->get('maxBathrooms')%")
-            ->orWhere('bedroom', 'LIKE', "%$request->get('maxBedrooms')%")
-            ->orWhere('bedroom', 'LIKE', "%$request->get('minBedrooms')%")
-            ->orWhere('three_quarter_bedroom', 'LIKE', "%$request->get('minBedrooms')%")
-            ->orWhere('transport', 'LIKE', "%$request->get('transport')%")
-            ->orWhere('shopping', 'LIKE', "%$request->get('shooping')%")
-            ->orWhere('swimmimg_pool', 'LIKE', "%$request->get('swimmingPool')%")
-            ->orWhere('gym', 'LIKE', "%$request->get('gym')%")->get();
+    //         $propertyResult = Property::where('location', 'LIKE', "%$request->get('cooling')%")
+    //         ->orWhere('category', 'LIKE', "%$request->get('propertyType')%")
+    //         ->orWhere('description', 'LIKE', "%$request->get('keywords')%")
+    //         ->orWhere('school', 'LIKE', "%$request->get('schools')%")
+    //         ->orWhere('size', 'LIKE', "%$request->get('minPropertySizes')%")
+    //         ->orWhere('size', 'LIKE', "%$request->get('maxPropertySizes')%")
+    //         ->orWhere('main_prize', 'LIKE', "%$request->get('minPrize')%")
+    //         ->orWhere('main_prize', 'LIKE', "%$request->get('maxPrize')%")
+    //         ->orWhere('lot_size', 'LIKE', "%$request->get('minCarSpaces')%")
+    //         ->orWhere('lot_size', 'LIKE', "%$request->get('maxCarSpaces')%")
+    //         ->orWhere('bathroom', 'LIKE', "%$request->get('minBathrooms')%")
+    //         ->orWhere('bathroom', 'LIKE', "%$request->get('maxBathrooms')%")
+    //         ->orWhere('bedroom', 'LIKE', "%$request->get('maxBedrooms')%")
+    //         ->orWhere('bedroom', 'LIKE', "%$request->get('minBedrooms')%")
+    //         ->orWhere('three_quarter_bedroom', 'LIKE', "%$request->get('minBedrooms')%")
+    //         ->orWhere('transport', 'LIKE', "%$request->get('transport')%")
+    //         ->orWhere('shopping', 'LIKE', "%$request->get('shooping')%")
+    //         ->orWhere('swimmimg_pool', 'LIKE', "%$request->get('swimmingPool')%")
+    //         ->orWhere('gym', 'LIKE', "%$request->get('gym')%")->get();
 
         // dd($propertyResult);
 
-        return response([ 'propertyResult' => PropertyResource::collection($propertyResult), 'message' => 'Retrieved successfully'], 200);
+        // return response([ 'propertyResult' => PropertyResource::collection($propertyResult), 'message' => 'Retrieved successfully'], 200);
 
     //     if ($search = \Request::get('q')){
     //         $propertyResult = Property::where(function($query) use ($search){
@@ -359,7 +359,7 @@ class ByOwnerPropertyController extends Controller
 
         // return $propertyResult;
         // return response([ 'propertyResult' => PropertyResource::collection($propertyResult), 'message' => 'Retrieved successfully'], 200);
-    }
+    // }
 
     /**
      * Remove the specified resource from storage.
