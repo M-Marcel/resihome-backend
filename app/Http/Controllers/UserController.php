@@ -57,7 +57,7 @@ class UserController extends Controller
             $path = "public/images/userImages";
 
             if(!Storage::exists($path)){
-                Storage::makeDirectory($path, 0755, true, true);
+                Storage::makeDirectory($path, 0775, true, true);
             }
             // Upload Image
             $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
@@ -149,7 +149,7 @@ class UserController extends Controller
             $path = "public/images/userImages";
 
             if(!Storage::exists($path)){
-                Storage::makeDirectory($path, 0755, true, true);
+                Storage::makeDirectory($path, 0775, true, true);
             }
             // Upload Image
             $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
