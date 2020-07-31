@@ -54,19 +54,22 @@ class UserController extends Controller
             // Filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             // Check if path exist
-            $path = "public/images/userImages";
+            $path = "public";
+            // $path = "public/images/userImages";
 
             if(!Storage::exists($path)){
                 Storage::makeDirectory($path, 0775, true, true);
             }
             // Upload Image
-            $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
+            $path = $request->file('image')->storeAs('public', $fileNameToStore);
+            // $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
 
              // make thumbnails
 	    $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
         $thumb = Image::make($request->file('image')->getRealPath());
         $thumb->resize(80, 80);
-        $thumb->save('storage/images/'.$thumbStore);
+        $thumb->save('storage/'.$thumbStore);
+        // $thumb->save('storage/images/'.$thumbStore);
 
         } else {
             $fileNameToStore = 'noimage.jpg';
@@ -146,21 +149,25 @@ class UserController extends Controller
             // Filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             // Check if path exist
-            $path = "public/images/userImages";
+            $path = "public";
+            // $path = "public/images/userImages";
 
             if(!Storage::exists($path)){
                 Storage::makeDirectory($path, 0775, true, true);
             }
             // Upload Image
-            $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
+            $path = $request->file('image')->storeAs('public', $fileNameToStore);
+            // $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
             // Delete file if exists
-            Storage::delete('public/images/'.$user->image);
+            Storage::delete('public/'.$user->image);
+            // Storage::delete('public/images/'.$user->image);
 
 	   //Make thumbnails
 	    $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
             $thumb = Image::make($request->file('image')->getRealPath());
             $thumb->resize(80, 80);
-            $thumb->save('storage/images/'.$thumbStore);
+            $thumb->save('storage/'.$thumbStore);
+            // $thumb->save('storage/images/'.$thumbStore);
 
         }
         // if($request->hasFile('image')){
