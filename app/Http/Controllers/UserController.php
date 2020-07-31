@@ -53,6 +53,12 @@ class UserController extends Controller
             $extension = $request->file('image')->getClientOriginalExtension();
             // Filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Check if path exist
+            $path = "public/images/userImages";
+
+            if(!Storage::exists($path)){
+                Storage::makeDirectory($path, 0755, true, true);
+            }
             // Upload Image
             $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
 
@@ -139,6 +145,12 @@ class UserController extends Controller
             $extension = $request->file('image')->getClientOriginalExtension();
             // Filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // Check if path exist
+            $path = "public/images/userImages";
+
+            if(!Storage::exists($path)){
+                Storage::makeDirectory($path, 0755, true, true);
+            }
             // Upload Image
             $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
             // Delete file if exists
