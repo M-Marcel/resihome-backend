@@ -76,7 +76,7 @@ class ByOwnerPropertyController extends Controller
             'water' => 'required|boolean',
             'park' => 'required|boolean',
             // 'concierge' => 'required',
-            'image' => 'sometimes|file|image|max:5000',
+            'image' => 'required|file|image|max:5000',
 
         ]);
 
