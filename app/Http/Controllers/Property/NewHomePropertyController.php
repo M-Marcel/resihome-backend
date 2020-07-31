@@ -74,7 +74,7 @@ class NewHomePropertyController extends Controller
             'water' => 'required|boolean',
             'park' => 'required|boolean',
             // 'cordinate' => 'required',
-            'image' => 'sometimes|file|image|max:5000',
+            'image' => 'file|image|max:5000',
 
         ]);
 
@@ -220,7 +220,8 @@ class NewHomePropertyController extends Controller
             'water' => 'required|boolean',
             'park' => 'required|boolean',
             // 'cordinate' => 'required',
-            'image' => 'sometimes|file|image|max:5000',
+            'image' => 'file|image|max:5000',
+
         ]);
 
 
