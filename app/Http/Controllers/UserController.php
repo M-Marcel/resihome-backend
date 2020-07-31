@@ -122,7 +122,7 @@ class UserController extends Controller
             'city' => 'string',
             'state' => 'string',
             'country' => 'string',
-            'image' => 'sometimes|file|image|max:4000',
+            'image' => 'image|mimes:jpeg,png|max:4000',
         ]);
 
         $user = User::find(Auth::user()->id);
