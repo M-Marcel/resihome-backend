@@ -19,7 +19,8 @@ class PhotoController extends Controller
     }
 
     public function propertyImage($fileName){
-        $path = public_path().'/storage/images/propertyImages/'.$fileName;
+        $path = public_path().'/images/propertyImages/'.$fileName;
+        // $path = public_path().'/storage/images/propertyImages/'.$fileName;
         return Response::download($path);
     }
 }
