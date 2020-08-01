@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Property;
 use Illuminate\Http\Request;
 use App\Http\Resources\PropertyResource;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class ShortLeasePropertyController extends Controller
 {
@@ -72,8 +74,6 @@ class ShortLeasePropertyController extends Controller
             'park' => 'required|boolean',
             // 'cordinate' => 'required',
             'image' => 'file|image|max:5000',
-
-
         ]);
 
 
@@ -91,10 +91,10 @@ class ShortLeasePropertyController extends Controller
             $path = $request->file('image')->storeAs('public/images/propertyImages', $fileNameToStore);
 
              // make thumbnails
-	    $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
-        $thumb = Image::make($request->file('image')->getRealPath());
-        $thumb->resize(80, 80);
-        $thumb->save('storage/images/'.$thumbStore);
+	    // $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
+        // $thumb = Image::make($request->file('image')->getRealPath());
+        // $thumb->resize(80, 80);
+        // $thumb->save('storage/images/'.$thumbStore);
 
         } else {
             $fileNameToStore = 'noimage.jpg';
@@ -142,7 +142,7 @@ class ShortLeasePropertyController extends Controller
             'park' => $request->get('park'),
             'concierge' => $request->get('concierge'),
             'image' => $fileNameToStore,
-            'thumbnail' => $thumbStore
+            // 'thumbnail' => $thumbStore
         ]);
 
         $property->save();
@@ -219,7 +219,6 @@ class ShortLeasePropertyController extends Controller
             'park' => 'required|boolean',
             // 'cordinate' => 'required',
             'image' => 'file|image|max:5000',
-
         ]);
 
 
@@ -240,10 +239,10 @@ class ShortLeasePropertyController extends Controller
             Storage::delete('public/images/'.$property->image);
 
 	   //Make thumbnails
-	    $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
-            $thumb = Image::make($request->file('image')->getRealPath());
-            $thumb->resize(80, 80);
-            $thumb->save('storage/images/'.$thumbStore);
+	    // $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
+        //     $thumb = Image::make($request->file('image')->getRealPath());
+        //     $thumb->resize(80, 80);
+        //     $thumb->save('storage/images/'.$thumbStore);
 
         }
 
@@ -291,7 +290,7 @@ class ShortLeasePropertyController extends Controller
 
         if($request->hasFile('image')){
             $property->image = $fileNameToStore;
-            $property->thumbnail = $thumbStore;
+            // $property->thumbnail = $thumbStore;
         }
         $property->save();
 
@@ -329,7 +328,7 @@ class ShortLeasePropertyController extends Controller
         if($property->image != 'noimage.jpg'){
             // Delete Image
             Storage::delete('public/images/propertyImages/'.$property->image);
-            Storage::delete('storage/images/'.$property->thumbnail);
+            // Storage::delete('storage/images/'.$property->thumbnail);
         }
 
         $property->delete();

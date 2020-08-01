@@ -75,7 +75,6 @@ class NewHomePropertyController extends Controller
             'park' => 'required|boolean',
             // 'cordinate' => 'required',
             'image' => 'file|image|max:5000',
-
         ]);
 
 
@@ -93,10 +92,10 @@ class NewHomePropertyController extends Controller
             $path = $request->file('image')->storeAs('public/images/propertyImages', $fileNameToStore);
 
              // make thumbnails
-	    $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
-        $thumb = Image::make($request->file('image')->getRealPath());
-        $thumb->resize(80, 80);
-        $thumb->save('storage/images/'.$thumbStore);
+	    // $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
+        // $thumb = Image::make($request->file('image')->getRealPath());
+        // $thumb->resize(80, 80);
+        // $thumb->save('storage/images/'.$thumbStore);
 
         } else {
             $fileNameToStore = 'noimage.jpg';
@@ -144,7 +143,7 @@ class NewHomePropertyController extends Controller
             'park' => $request->get('park'),
             'concierge' => $request->get('concierge'),
             'image' => $fileNameToStore,
-            'thumbnail' => $thumbStore
+            // 'thumbnail' => $thumbStore
         ]);
 
         $property->save();
@@ -221,7 +220,6 @@ class NewHomePropertyController extends Controller
             'park' => 'required|boolean',
             // 'cordinate' => 'required',
             'image' => 'file|image|max:5000',
-
         ]);
 
 
@@ -242,10 +240,10 @@ class NewHomePropertyController extends Controller
             Storage::delete('public/images/'.$property->image);
 
 	   //Make thumbnails
-	    $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
-            $thumb = Image::make($request->file('image')->getRealPath());
-            $thumb->resize(80, 80);
-            $thumb->save('storage/images/'.$thumbStore);
+	    // $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
+        //     $thumb = Image::make($request->file('image')->getRealPath());
+        //     $thumb->resize(80, 80);
+        //     $thumb->save('storage/images/'.$thumbStore);
 
         }
 
@@ -293,7 +291,7 @@ class NewHomePropertyController extends Controller
 
         if($request->hasFile('image')){
             $property->image = $fileNameToStore;
-            $property->thumbnail = $thumbStore;
+            // $property->thumbnail = $thumbStore;
         }
         $property->save();
 
@@ -331,7 +329,7 @@ class NewHomePropertyController extends Controller
         if($property->image != 'noimage.jpg'){
             // Delete Image
             Storage::delete('public/images/propertyImages/'.$property->image);
-            Storage::delete('storage/images/'.$property->thumbnail);
+            // Storage::delete('storage/images/'.$property->thumbnail);
         }
 
         $property->delete();
