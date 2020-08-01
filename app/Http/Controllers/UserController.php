@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
+// use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
 {
@@ -66,9 +66,9 @@ class UserController extends Controller
 
              // make thumbnails
 	    $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
-        $thumb = Image::make($request->file('image')->getRealPath());
-        $thumb->resize(80, 80);
-        $thumb->save('storage/images'.$thumbStore);
+        // $thumb = Image::make($request->file('image')->getRealPath());
+        // $thumb->resize(80, 80);
+        // $thumb->save('storage/images'.$thumbStore);
         // $thumb->save('storage/images/'.$thumbStore);
 
         } else {
@@ -163,10 +163,10 @@ class UserController extends Controller
             // Storage::delete('public/images/'.$user->image);
 
 	   //Make thumbnails
-	    $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
-            $thumb = Image::make($request->file('image')->getRealPath());
-            $thumb->resize(80, 80);
-            $thumb->save('storage/'.$thumbStore);
+	    // $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
+            // $thumb = Image::make($request->file('image')->getRealPath());
+            // $thumb->resize(80, 80);
+            // $thumb->save('storage/'.$thumbStore);
             // $thumb->save('storage/images/'.$thumbStore);
 
         }
@@ -258,7 +258,7 @@ class UserController extends Controller
 
         if($request->hasFile('image')){
             $user->image = $fileNameToStore;
-            $user->thumbnail = $thumbStore;
+            // $user->thumbnail = $thumbStore;
         }
         $user->save();
 
