@@ -91,6 +91,12 @@ class ByOwnerPropertyController extends Controller
             $extension = $request->file('image')->getClientOriginalExtension();
             // Filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
+
+            if(!Storage::exists('/images/propertyImages')) {
+
+                Storage::makeDirectory('/images/propertyImages', 0775, true); //creates directory
+
+            }
             // Upload Image
             $path = $request->file('image')->storeAs('public/images/propertyImages', $fileNameToStore);
 

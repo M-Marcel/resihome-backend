@@ -236,7 +236,7 @@ class ForSalePropertyController extends Controller
             // Upload Image
             $path = $request->file('image')->storeAs('public/images/propertyImages', $fileNameToStore);
             // Delete file if exists
-            Storage::delete('public/images/'.$property->image);
+            Storage::delete('public/images/propertyImages/'.$property->image);
 
 	   //Make thumbnails
 	    // $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
