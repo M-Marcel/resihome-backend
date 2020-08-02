@@ -54,14 +54,14 @@ class UserController extends Controller
             // Filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             // Check if path exist
-            $path = "public/images";
+            $path = "public/photo/profile";
             // $path = "public/images/userImages";
 
             if(!Storage::exists($path)){
                 Storage::makeDirectory($path, 0775, true, true);
             }
             // Upload Image
-            $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
+            $path = $request->file('image')->storeAs('public/photo/profile', $fileNameToStore);
             // $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
 
              // make thumbnails
@@ -149,17 +149,17 @@ class UserController extends Controller
             // Filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
             // Check if path exist
-            $path = "public/images";
+            $path = "public/photo/profile";
             // $path = "public/images/userImages";
 
             if(!Storage::exists($path)){
                 Storage::makeDirectory($path, 0775, true, true);
             }
             // Upload Image
-            $path = $request->file('image')->storeAs('public/images', $fileNameToStore);
+            $path = $request->file('image')->storeAs('public/photo/profile', $fileNameToStore);
             // $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
             // Delete file if exists
-            Storage::delete('public/images'.$user->image);
+            Storage::delete('public/photo/profile'.$user->image);
             // Storage::delete('public/images/'.$user->image);
 
 	   //Make thumbnails
