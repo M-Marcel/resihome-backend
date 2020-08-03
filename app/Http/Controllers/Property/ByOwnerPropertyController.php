@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Property;
 use Illuminate\Http\Request;
 use App\Http\Resources\PropertyResource;
-// use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -83,32 +82,21 @@ class ByOwnerPropertyController extends Controller
 
         // Handle File Upload
         if($request->hasFile('image')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
+             //get filename with extension
+            $filenamewithextension = $request->file('image')->getClientOriginalName();
+
+            //get filename without extension
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+
+            //get file extension
             $extension = $request->file('image')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
 
-            if(!Storage::exists('/photo/profile/propertyImages')) {
-
-                Storage::makeDirectory('/images/propertyImages', 0775, true); //creates directory
-
-            }
-            // Upload Image
-            $path = $request->file('image')->storeAs('public/images/propertyImages', $fileNameToStore);
-
-             // make thumbnails
-	    // $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
-        // $thumb = Image::make($request->file('image')->getRealPath());
-        // $thumb->resize(80, 80);
-        // $thumb->save('storage/images/'.$thumbStore);
-
-        } else {
-            $fileNameToStore = 'noimage.jpg';
+            //filename to store
+            $filenametostore = $filename.'_'.time().'.'.$extension;
+            //Upload File to s3
+            Storage::disk('s3')->put($filenametostore, fopen($request->file('image'), 'r+'), 'public');
         }
+        $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . 'amazonaws.com/'. $filenametostore;
 
         $property = new Property([
             'owner_id' => auth()->user()->id,
@@ -151,7 +139,8 @@ class ByOwnerPropertyController extends Controller
             'water' => $request->get('water'),
             'park' => $request->get('park'),
             'concierge' => $request->get('concierge'),
-            'image' => $fileNameToStore,
+            'imageUrl' => $imageUrl,
+            'image' => $filenametostore,
             // 'thumbnail' => $thumbStore
         ]);
 
@@ -236,26 +225,26 @@ class ByOwnerPropertyController extends Controller
         $property = Property::find($id);
 
         if($request->hasFile('image')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('image')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('image')->storeAs('public/images/propertyImages', $fileNameToStore);
-            // Delete file if exists
-            Storage::delete('public/images/propertyImages/'.$property->image);
+            //get filename with extension
+           $filenamewithextension = $request->file('image')->getClientOriginalName();
 
-	   //Make thumbnails
-	    // $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
-        //     $thumb = Image::make($request->file('image')->getRealPath());
-        //     $thumb->resize(80, 80);
-        //     $thumb->save('storage/images/'.$thumbStore);
+           //get filename without extension
+           $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
 
-        }
+           //get file extension
+           $extension = $request->file('image')->getClientOriginalExtension();
+
+           //filename to store
+           $filenametostore = $filename.'_'.time().'.'.$extension;
+
+           if ($property->image !== null){
+            Storage::disk('s3')->delete($property->image);
+            }
+           //Upload File to s3
+           Storage::disk('s3')->put($filenametostore, fopen($request->file('image'), 'r+'), 'public');
+       }
+       $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . 'amazonaws.com/'. $filenametostore;
+
 
 
         $property->owner_id = auth()->user()->id;
@@ -300,7 +289,8 @@ class ByOwnerPropertyController extends Controller
         $property->concierge = $request->get('concierge');
 
         if($request->hasFile('image')){
-            $property->image = $fileNameToStore;
+            $property->image = $filenametostore;
+            $property->imageUrl = $imageUrl;
             // $property->thumbnail = $thumbStore;
         }
         $property->save();
@@ -315,58 +305,6 @@ class ByOwnerPropertyController extends Controller
     }
 
 
-    // public function search(Request $request){
-
-    //         $propertyResult = Property::where('location', 'LIKE', "%$request->get('cooling')%")
-    //         ->orWhere('category', 'LIKE', "%$request->get('propertyType')%")
-    //         ->orWhere('description', 'LIKE', "%$request->get('keywords')%")
-    //         ->orWhere('school', 'LIKE', "%$request->get('schools')%")
-    //         ->orWhere('size', 'LIKE', "%$request->get('minPropertySizes')%")
-    //         ->orWhere('size', 'LIKE', "%$request->get('maxPropertySizes')%")
-    //         ->orWhere('main_prize', 'LIKE', "%$request->get('minPrize')%")
-    //         ->orWhere('main_prize', 'LIKE', "%$request->get('maxPrize')%")
-    //         ->orWhere('lot_size', 'LIKE', "%$request->get('minCarSpaces')%")
-    //         ->orWhere('lot_size', 'LIKE', "%$request->get('maxCarSpaces')%")
-    //         ->orWhere('bathroom', 'LIKE', "%$request->get('minBathrooms')%")
-    //         ->orWhere('bathroom', 'LIKE', "%$request->get('maxBathrooms')%")
-    //         ->orWhere('bedroom', 'LIKE', "%$request->get('maxBedrooms')%")
-    //         ->orWhere('bedroom', 'LIKE', "%$request->get('minBedrooms')%")
-    //         ->orWhere('three_quarter_bedroom', 'LIKE', "%$request->get('minBedrooms')%")
-    //         ->orWhere('transport', 'LIKE', "%$request->get('transport')%")
-    //         ->orWhere('shopping', 'LIKE', "%$request->get('shooping')%")
-    //         ->orWhere('swimmimg_pool', 'LIKE', "%$request->get('swimmingPool')%")
-    //         ->orWhere('gym', 'LIKE', "%$request->get('gym')%")->get();
-
-        // dd($propertyResult);
-
-        // return response([ 'propertyResult' => PropertyResource::collection($propertyResult), 'message' => 'Retrieved successfully'], 200);
-
-    //     if ($search = \Request::get('q')){
-    //         $propertyResult = Property::where(function($query) use ($search){
-    //         $query->where('location', 'LIKE', "%$search%")
-    //         ->orWhere('type', 'LIKE', "%$search%")
-    //         ->orWhere('size', 'LIKE', "%$search%")
-    //         ->orWhere('main_prize', 'LIKE', "%$search%")
-    //         ->orWhere('lot_size', 'LIKE', "%$search%")
-    //         ->orWhere('size_prize', 'LIKE', "%$search%")
-    //         ->orWhere('bathroom', 'LIKE', "%$search%")
-    //         ->orWhere('bedroom', 'LIKE', "%$search%")
-    //         ->orWhere('three_quarter_bedroom', 'LIKE', "%$search%")
-    //         ->orWhere('estimate_prize', 'LIKE', "%$search%")
-    //         ->orWhere('transport', 'LIKE', "%$search%")
-    //         ->orWhere('shopping', 'LIKE', "%$search%")
-    //         ->orWhere('swimmimg_pool', 'LIKE', "%$search%")
-    //         ->orWhere('gym', 'LIKE', "%$search%")
-    //         ->orWhere('city', 'LIKE', "%$search%")
-    //         ->orWhere('water', 'LIKE', "%$search%")
-    //         ->orWhere('park', 'LIKE', "%$search%");
-
-    //     });
-    // }
-
-        // return $propertyResult;
-        // return response([ 'propertyResult' => PropertyResource::collection($propertyResult), 'message' => 'Retrieved successfully'], 200);
-    // }
 
     /**
      * Remove the specified resource from storage.
@@ -380,7 +318,7 @@ class ByOwnerPropertyController extends Controller
 
         //Check if property exists before deleting
         if (!isset($property)){
-            return redirect('/propertys')->with('error', 'No property Found');
+            return response(['message' => 'No property Found']);
         }
 
         // Check for correct user
@@ -388,15 +326,12 @@ class ByOwnerPropertyController extends Controller
             return response(['message' => 'Unauthorized User']);
         }
 
-        if($property->image != 'noimage.jpg'){
+        if($property->image != null){
             // Delete Image
-            Storage::delete('public/images/propertyImages/'.$property->image);
-            Storage::delete('storage/images/'.$property->thumbnail);
+            Storage::disk('s3')->delete($property->image);
         }
 
         $property->delete();
-        // $property->property_images()->delete();
-        // $property->delete();
         return response([
             'message' => 'Property Deleted Successfully'
         ]);

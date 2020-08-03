@@ -73,33 +73,29 @@ class NewHomePropertyController extends Controller
             'city' => 'required|boolean',
             'water' => 'required|boolean',
             'park' => 'required|boolean',
-            // 'cordinate' => 'required',
+            // 'concierge' => 'required',
             'image' => 'file|image|max:5000',
+
         ]);
 
 
         // Handle File Upload
         if($request->hasFile('image')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
+             //get filename with extension
+            $filenamewithextension = $request->file('image')->getClientOriginalName();
+
+            //get filename without extension
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+
+            //get file extension
             $extension = $request->file('image')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('image')->storeAs('public/images/propertyImages', $fileNameToStore);
 
-             // make thumbnails
-	    // $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
-        // $thumb = Image::make($request->file('image')->getRealPath());
-        // $thumb->resize(80, 80);
-        // $thumb->save('storage/images/'.$thumbStore);
-
-        } else {
-            $fileNameToStore = 'noimage.jpg';
+            //filename to store
+            $filenametostore = $filename.'_'.time().'.'.$extension;
+            //Upload File to s3
+            Storage::disk('s3')->put($filenametostore, fopen($request->file('image'), 'r+'), 'public');
         }
+        $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . 'amazonaws.com/'. $filenametostore;
 
         $property = new Property([
             'owner_id' => auth()->user()->id,
@@ -142,7 +138,8 @@ class NewHomePropertyController extends Controller
             'water' => $request->get('water'),
             'park' => $request->get('park'),
             'concierge' => $request->get('concierge'),
-            'image' => $fileNameToStore,
+            'imageUrl' => $imageUrl,
+            'image' => $filenametostore,
             // 'thumbnail' => $thumbStore
         ]);
 
@@ -220,32 +217,33 @@ class NewHomePropertyController extends Controller
             'park' => 'required|boolean',
             // 'cordinate' => 'required',
             'image' => 'file|image|max:5000',
+
         ]);
 
 
         $property = Property::find($id);
 
         if($request->hasFile('image')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('image')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Upload Image
-            $path = $request->file('image')->storeAs('public/images/propertyImages', $fileNameToStore);
-            // Delete file if exists
-            Storage::delete('public/images/'.$property->image);
+            //get filename with extension
+           $filenamewithextension = $request->file('image')->getClientOriginalName();
 
-	   //Make thumbnails
-	    // $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
-        //     $thumb = Image::make($request->file('image')->getRealPath());
-        //     $thumb->resize(80, 80);
-        //     $thumb->save('storage/images/'.$thumbStore);
+           //get filename without extension
+           $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
 
-        }
+           //get file extension
+           $extension = $request->file('image')->getClientOriginalExtension();
+
+           //filename to store
+           $filenametostore = $filename.'_'.time().'.'.$extension;
+
+           if ($property->image !== null){
+            Storage::disk('s3')->delete($property->image);
+            }
+           //Upload File to s3
+           Storage::disk('s3')->put($filenametostore, fopen($request->file('image'), 'r+'), 'public');
+       }
+       $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . 'amazonaws.com/'. $filenametostore;
+
 
 
         $property->owner_id = auth()->user()->id;
@@ -290,7 +288,8 @@ class NewHomePropertyController extends Controller
         $property->concierge = $request->get('concierge');
 
         if($request->hasFile('image')){
-            $property->image = $fileNameToStore;
+            $property->image = $filenametostore;
+            $property->imageUrl = $imageUrl;
             // $property->thumbnail = $thumbStore;
         }
         $property->save();
@@ -318,7 +317,7 @@ class NewHomePropertyController extends Controller
 
         //Check if property exists before deleting
         if (!isset($property)){
-            return redirect('/propertys')->with('error', 'No property Found');
+            return response(['message' => 'No property Found']);
         }
 
         // Check for correct user
@@ -326,15 +325,12 @@ class NewHomePropertyController extends Controller
             return response(['message' => 'Unauthorized User']);
         }
 
-        if($property->image != 'noimage.jpg'){
+        if($property->image != null){
             // Delete Image
-            Storage::delete('public/images/propertyImages/'.$property->image);
-            // Storage::delete('storage/images/'.$property->thumbnail);
+            Storage::disk('s3')->delete($property->image);
         }
 
         $property->delete();
-        // $property->property_images()->delete();
-        // $property->delete();
         return response([
             'message' => 'Property Deleted Successfully'
         ]);

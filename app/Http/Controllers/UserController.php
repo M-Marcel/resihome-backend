@@ -135,9 +135,6 @@ class UserController extends Controller
         ]);
 
         $user = User::find(Auth::user()->id);
-        // $user = User::find(auth()->user()->id);
-        // $user = Auth::user();
-        // dd($user);
 
         if($request->hasFile('image')){
 
@@ -153,71 +150,13 @@ class UserController extends Controller
         //filename to store
         $filenametostore = $filename.'_'.time().'.'.$extension;
 
+        if ($user->image !== null){
+            Storage::disk('s3')->delete($user->image);
+        }
+
         //Upload File to s3
         Storage::disk('s3')->put($filenametostore, fopen($request->file('image'), 'r+'), 'public');
-
-        //Store $filenametostore in the database
-
-
-            // // Get filename with the extension
-            // $filenameWithExt = $request->file('image')->getClientOriginalName();
-            // // Get just filename
-            // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // // Get just ext
-            // $extension = $request->file('image')->getClientOriginalExtension();
-            // // Filename to store
-            // $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // // Check if path exist
-            // $path = "/img";
-            // // $path = "public/images/userImages";
-
-            // if(!Storage::exists($path)){
-            //     Storage::makeDirectory($path, 0775, true, true);
-            // }
-            // // Upload Image
-            // $path = $request->file('image')->storeAs('public/photo/profile', $fileNameToStore);
-            // // $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
-            // // Delete file if exists
-            // Storage::delete('public/photo/profile'.$user->image);
-            // Storage::delete('public/images/'.$user->image);
-
-	   //Make thumbnails
-	    // $thumbStore = 'thumb.'.$filename.'_'.time().'.'.$extension;
-            // $thumb = Image::make($request->file('image')->getRealPath());
-            // $thumb->resize(80, 80);
-            // $thumb->save('storage/'.$thumbStore);
-            // $thumb->save('storage/images/'.$thumbStore);
-
-        }
-        // if($request->hasFile('image')){
-        //     $user->image = $fileNameToStore;
-        //     $user->thumbnail = $thumbStore;
-        // }
-
-        // $user->update($request->all());
-
-// dd([
-// //     [
-
-// //     'user' => $request->get('firstname'),
-// //     'masseage'=> 'dd'
-// // ]
-// // '1' => auth()->id(),
-// '2' => Auth::id(),
-// // '3' => $request->user()->id,
-// // '4' =>    auth()->check(),
-// // '5' =>    get_class(auth()->guard())
-//     ]);
-// dd( $user->id);
-        // $user->email =  $user('email');
-        // $user->password =  $user('password');
-        // $user->user_role =  $user('user_role');
-
-        // if ($request->get('email') === null){
-        //     $user->email =  $user->email;
-        // }else{
-        //     $user->email = $request->get('email');
-        // };
+    }
         if ($request->get('firstName') === null){
             $user->firstname =  $user->firstname;
         }else{
@@ -259,27 +198,17 @@ class UserController extends Controller
             $user->country = $request->get('country');
         };
 
-        // dd(
-        //     auth()->id() ?? '?',
-        //     Auth::id() ?? '?',
-        //     $request->user()->id ?? '?',
-        //     auth()->check(),
-        //     get_class(auth()->guard())
-        // );
-        // $user->lastname = $request->get('lastName');
-        // $user->postal_code = $request->get('postalCode');
-        // $user->phone_number = $request->get('phoneNumber');
-        // $user->address = $request->get('address');
-        // $user->city = $request->get('city');
-        // $user->state = $request->get('state');
-        // $user->country = $request->get('country');
-
+        $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . 'amazonaws.com/'. $filenametostore;
+        // https://resihome.s3.us-east-2.amazonaws.com/permission+template_1596447839.png
 
         if($request->hasFile('image')){
             $user->image = $filenametostore;
             // $user->thumbnail = $thumbStore;
         }
+        $user->imageUrl = $imageUrl;
         $user->save();
+
+
 
         return response([
 
@@ -289,42 +218,6 @@ class UserController extends Controller
             ]);
 
 
-        // $thumbnailPath = public_path().'/storage/users/thumbnail/';
-        // $originalPath = public_path().'/storage/users/original/';
-        // if(!File::isDirectory($thumbnailPath)){
-        //     File::makeDirectory($thumbnailPath, 0777, true, true);
-        // }
-        // if(!File::isDirectory($originalPath)){
-        //     File::makeDirectory($originalPath, 0777, true, true);
-        // }
-
-        // $originalImage= $request->file('image');
-        // $thumbnailImage = Image::make($originalImage);
-        // $thumbnailImage->save($originalPath.time().$originalImage->getClientOriginalName());
-        // $thumbnailImage->resize(150,150);
-        // $thumbnailImage->save($thumbnailPath.'thumbnail'.time().$originalImage->getClientOriginalName());
-
-        // $user->image = time().$originalImage->getClientOriginalName();
-        // $user->thumbnail = 'thumb'.time().$originalImage->getClientOriginalName();
-
-
-        // $user->save();
-
-        // return response($user, 200);
-    }
-
-    public function imageCheck($file){
-        // return response(Storage::disk('s3')->url($file), 200);
-        // return Storage::disk('s3')->response($file);
-        // return Storage::get($file);
-
-        $url = Storage::temporaryUrl(
-            $file,
-            now()->addMinutes(5),
-            ['ResponseContentType' => 'application/octet-stream']
-        );
-
-        return $url;
     }
 
     /**
