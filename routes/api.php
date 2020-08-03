@@ -45,8 +45,9 @@ Route::middleware('auth:api')->group(function () {
 
 });
 
-Route::get('userimage/{filename}', 'PhotoController@profileImage');
-Route::get('propertyimage/{filename}', 'PhotoController@propertyImage');
+// Route::get('userimage/{filename}', 'PhotoController@profileImage');
+// Route::get('propertyimage/{filename}', 'PhotoController@propertyImage');
+Route::get('image/{filename}', 'UserController@imageCheck');
 
 // Route::get('/customer', function () {
 //     //

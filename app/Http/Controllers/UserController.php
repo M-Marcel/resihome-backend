@@ -140,26 +140,45 @@ class UserController extends Controller
         // dd($user);
 
         if($request->hasFile('image')){
-            // Get filename with the extension
-            $filenameWithExt = $request->file('image')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            // Get just ext
-            $extension = $request->file('image')->getClientOriginalExtension();
-            // Filename to store
-            $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            // Check if path exist
-            $path = "public/photo/profile";
-            // $path = "public/images/userImages";
 
-            if(!Storage::exists($path)){
-                Storage::makeDirectory($path, 0775, true, true);
-            }
-            // Upload Image
-            $path = $request->file('image')->storeAs('public/photo/profile', $fileNameToStore);
-            // $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
-            // Delete file if exists
-            Storage::delete('public/photo/profile'.$user->image);
+            //get filename with extension
+        $filenamewithextension = $request->file('image')->getClientOriginalName();
+
+        //get filename without extension
+        $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+
+        //get file extension
+        $extension = $request->file('image')->getClientOriginalExtension();
+
+        //filename to store
+        $filenametostore = $filename.'_'.time().'.'.$extension;
+
+        //Upload File to s3
+        Storage::disk('s3')->put($filenametostore, fopen($request->file('image'), 'r+'), 'public');
+
+        //Store $filenametostore in the database
+
+
+            // // Get filename with the extension
+            // $filenameWithExt = $request->file('image')->getClientOriginalName();
+            // // Get just filename
+            // $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            // // Get just ext
+            // $extension = $request->file('image')->getClientOriginalExtension();
+            // // Filename to store
+            // $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            // // Check if path exist
+            // $path = "/img";
+            // // $path = "public/images/userImages";
+
+            // if(!Storage::exists($path)){
+            //     Storage::makeDirectory($path, 0775, true, true);
+            // }
+            // // Upload Image
+            // $path = $request->file('image')->storeAs('public/photo/profile', $fileNameToStore);
+            // // $path = $request->file('image')->storeAs('public/images/userImages', $fileNameToStore);
+            // // Delete file if exists
+            // Storage::delete('public/photo/profile'.$user->image);
             // Storage::delete('public/images/'.$user->image);
 
 	   //Make thumbnails
@@ -257,7 +276,7 @@ class UserController extends Controller
 
 
         if($request->hasFile('image')){
-            $user->image = $fileNameToStore;
+            $user->image = $filenametostore;
             // $user->thumbnail = $thumbStore;
         }
         $user->save();
@@ -292,6 +311,20 @@ class UserController extends Controller
         // $user->save();
 
         // return response($user, 200);
+    }
+
+    public function imageCheck($file){
+        // return response(Storage::disk('s3')->url($file), 200);
+        // return Storage::disk('s3')->response($file);
+        // return Storage::get($file);
+
+        $url = Storage::temporaryUrl(
+            $file,
+            now()->addMinutes(5),
+            ['ResponseContentType' => 'application/octet-stream']
+        );
+
+        return $url;
     }
 
     /**

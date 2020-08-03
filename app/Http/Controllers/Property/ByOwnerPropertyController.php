@@ -92,7 +92,7 @@ class ByOwnerPropertyController extends Controller
             // Filename to store
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
 
-            if(!Storage::exists('/images/propertyImages')) {
+            if(!Storage::exists('/photo/profile/propertyImages')) {
 
                 Storage::makeDirectory('/images/propertyImages', 0775, true); //creates directory
 

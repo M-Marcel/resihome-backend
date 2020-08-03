@@ -46,6 +46,16 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            'permissions' => [
+                'file' => [
+                    'public' => 0664,
+                    'private' => 0600,
+                ],
+                'dir' => [
+                    'public' => 0775,
+                    'private' => 0700,
+                ],
+            ],
         ],
 
         'public' => [
@@ -63,6 +73,14 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
+
+            // 'driver' => 's3',
+            // 'key' => getenv('AWS_ACCESS_KEY_ID'),
+            // 'secret' => getenv('AWS_SECRET_ACCESS_KEY'),
+            // 'region' => getenv('AWS_DEFAULT_REGION'),
+            // 'bucket' => getenv('AWS_BUCKET'),
+            // 'url' => getenv('AWS_URL'),
+            // 'endpoint' => getenv('AWS_ENDPOINT'),
         ],
 
     ],
@@ -80,6 +98,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('img') => storage_path('app/img'),
     ],
 
 ];
