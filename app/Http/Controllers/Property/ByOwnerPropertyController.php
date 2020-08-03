@@ -96,7 +96,7 @@ class ByOwnerPropertyController extends Controller
             //Upload File to s3
             Storage::disk('s3')->put($filenametostore, fopen($request->file('image'), 'r+'), 'public');
         }
-        $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . 'amazonaws.com/'. $filenametostore;
+        $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . '.amazonaws.com/'. $filenametostore;
 
         $property = new Property([
             'owner_id' => auth()->user()->id,
@@ -243,7 +243,7 @@ class ByOwnerPropertyController extends Controller
            //Upload File to s3
            Storage::disk('s3')->put($filenametostore, fopen($request->file('image'), 'r+'), 'public');
        }
-       $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . 'amazonaws.com/'. $filenametostore;
+       $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . '.amazonaws.com/'. $filenametostore;
 
 
 
