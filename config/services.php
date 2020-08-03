@@ -25,22 +25,22 @@ return [
     ],
 
     'ses' => [
-        'key' => env('AWS_ACCESS_KEY_ID'),
-        'secret' => env('AWS_SECRET_ACCESS_KEY'),
-        'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+        // 'key' => env('AWS_ACCESS_KEY_ID'),
+        // 'secret' => env('AWS_SECRET_ACCESS_KEY'),
+        // 'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
 
-        // 'key' => getenv('AWS_ACCESS_KEY_ID'),
-        // 'secret' => getenv('AWS_SECRET_ACCESS_KEY'),
-        // 'region' => getenv('AWS_DEFAULT_REGION', 'us-east-1'),
+        'key' => getenv('AWS_ACCESS_KEY_ID'),
+        'secret' => getenv('AWS_SECRET_ACCESS_KEY'),
+        'region' => getenv('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
     'passport' => [
-        // 'login_endpoint' => getenv('PASSPORT_LOGIN_ENDPOINT'),
-        // 'client_id' => getenv('CLIENT_ID'),
-        // 'client_secret' => getenv('CLIENT_SECRET'),
-        'login_endpoint' => env('PASSPORT_LOGIN_ENDPOINT'),
-        'client_id' => env('PASSPORT_CLIENT_ID'),
-        'client_secret' => env('PASSPORT_CLIENT_SECRET'),
+        'login_endpoint' => getenv('PASSPORT_LOGIN_ENDPOINT'),
+        'client_id' => getenv('CLIENT_ID'),
+        'client_secret' => getenv('CLIENT_SECRET'),
+        // 'login_endpoint' => env('PASSPORT_LOGIN_ENDPOINT'),
+        // 'client_id' => env('PASSPORT_CLIENT_ID'),
+        // 'client_secret' => env('PASSPORT_CLIENT_SECRET'),
     ],
 
 ];
