@@ -94,14 +94,14 @@ class ForSalePropertyController extends Controller
             //Upload File to s3
             Storage::disk('s3')->put($filenametostore, fopen($request->file('image'), 'r+'), 'public');
         }
-       $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . '.amazonaws.com/'. $filenametostore;
+        $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . '.amazonaws.com/'. $filenametostore;
 
         $property = new Property([
             'owner_id' => auth()->user()->id,
             'agent_id' => $request->get('agentId'),
             'category' => $request->get('category'),
-            'address' => $request->get('category'),
-            'location' => $request->get('address'),
+            'address' => $request->get('address'),
+            'location' => $request->get('location'),
             'description' => $request->get('description'),
             'type' => $request->get('type'),
             'sub_type' => $request->get('subType'),
@@ -192,7 +192,7 @@ class ForSalePropertyController extends Controller
             'threeQuarterBedroom' => 'required|integer',
             'size' => 'required',
             'mainPrize' => 'required',
-            'sizePrize' => 'somethings',
+            'sizePrize' => 'sometimes',
             'estimatePrize' => 'required',
             'yearBuilt' => 'required',
             'heating' => 'required',
@@ -241,15 +241,15 @@ class ForSalePropertyController extends Controller
            //Upload File to s3
            Storage::disk('s3')->put($filenametostore, fopen($request->file('image'), 'r+'), 'public');
        }
-      $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . '.amazonaws.com/'. $filenametostore;
+       $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . '.amazonaws.com/'. $filenametostore;
 
 
 
         $property->owner_id = auth()->user()->id;
         $property->agent_id = $request->get('agentId');
         $property->category = $request->get('category');
-        $property->address = $request->get('category');
-        $property->location = $request->get('address');
+        $property->address = $request->get('address');
+        $property->location = $request->get('location');
         $property->description = $request->get('description');
         $property->type = $request->get('type');
         $property->sub_type = $request->get('subType');
