@@ -204,8 +204,8 @@ class UserController extends Controller
         if($request->hasFile('image')){
             $user->image = $filenametostore;
             // $user->thumbnail = $thumbStore;
+            $user->imageUrl = $imageUrl;
         }
-        $user->imageUrl = $imageUrl;
         $user->save();
 
 

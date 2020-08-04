@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Property;
 use Illuminate\Http\Request;
 use App\Http\Resources\PropertyResource;
+use Faker\Provider\Lorem;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -245,8 +246,6 @@ class ByOwnerPropertyController extends Controller
        }
        $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . '.amazonaws.com/'. $filenametostore;
 
-
-
         $property->owner_id = auth()->user()->id;
         $property->agent_id = $request->get('agentId');
         $property->category = $request->get('category');
@@ -292,6 +291,9 @@ class ByOwnerPropertyController extends Controller
             $property->image = $filenametostore;
             $property->imageUrl = $imageUrl;
             // $property->thumbnail = $thumbStore;
+        }else{
+            $property->image =  $property->image;
+            $property->imageUrl = $property->imageUrl;
         }
         $property->save();
 
