@@ -198,10 +198,10 @@ class UserController extends Controller
             $user->country = $request->get('country');
         };
 
-        $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . '.amazonaws.com/'. $filenametostore;
         // https://resihome.s3.us-east-2.amazonaws.com/permission+template_1596447839.png
 
         if($request->hasFile('image')){
+            $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . '.amazonaws.com/'. $filenametostore;
             $user->image = $filenametostore;
             // $user->thumbnail = $thumbStore;
             $user->imageUrl = $imageUrl;
