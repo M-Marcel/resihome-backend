@@ -299,7 +299,7 @@ class ForSalePropertyController extends Controller
     //         'message' => 'Property Updated Successfully'
 
     //          ]);
-    dd($request);
+    return response()->json($request->all());
 
     }
 
