@@ -27,6 +27,26 @@ class PropertyController extends Controller
         return response([ 'properties' => PropertyResource::collection($properties), 'message' => 'Retrieved successfully'], 206);
     }
 
+    public function sold()
+    {
+        $properties = Property::where('status', 0)->get();
+        return response([ 'properties' => PropertyResource::collection($properties), 'message' => 'Retrieved successfully'], 206);
+    }
+
+    public function isSold($id)
+    {
+        $property = Property::find($id);
+        $property->status = 0;
+        $property->save();
+
+        return response([
+
+            'property' => $property,
+            'message' => 'Property Updated to Sold'
+
+             ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
