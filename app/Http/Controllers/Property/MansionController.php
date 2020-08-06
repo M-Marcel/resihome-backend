@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Property;
 
 use App\Http\Controllers\Controller;
-use App\Property;
+use App\Mansion;
 use Illuminate\Http\Request;
-use App\Http\Resources\PropertyResource;
 use Illuminate\Support\Facades\Storage;
 
-class ShortLeasePropertyController extends Controller
+class MansionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,13 @@ class ShortLeasePropertyController extends Controller
      */
     public function index()
     {
-        $properties = Property::where('category', 'Short term lease')->get();
-        return PropertyResource::collection($properties);
+        $mansion = Mansion::all();
+        return response([
 
+            'Mansion' => $mansion,
+            'message' => 'Mansion Created Successfully'
+
+             ]);
     }
 
     /**
@@ -28,13 +31,12 @@ class ShortLeasePropertyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
     public function store(Request $request)
     {
         $this->validate($request, [
             // 'ownerId' => 'sometimes',
             'agentId' => 'required|integer',
-            'category' => 'required',
+            'title' => 'required',
             'address' => 'required',
             'location' => 'required',
             'description' => 'required',
@@ -71,7 +73,6 @@ class ShortLeasePropertyController extends Controller
             'city' => 'required|boolean',
             'water' => 'required|boolean',
             'park' => 'required|boolean',
-            // 'concierge' => 'required',
             'image' => 'file|image|max:5000',
 
         ]);
@@ -95,10 +96,10 @@ class ShortLeasePropertyController extends Controller
             $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . '.amazonaws.com/'. $filenametostore;
         }
 
-        $property = new Property([
+        $mansion = new Mansion([
             'owner_id' => auth()->user()->id,
             'agent_id' => $request->get('agentId'),
-            'category' => $request->get('category'),
+            'title' => $request->get('title'),
             'address' => $request->get('address'),
             'location' => $request->get('location'),
             'description' => $request->get('description'),
@@ -138,45 +139,50 @@ class ShortLeasePropertyController extends Controller
             'concierge' => $request->get('concierge'),
             'imageUrl' => $imageUrl,
             'image' => $filenametostore,
+            'video' => $request->get('video'),
+            'video_description' => $request->get('videoDescription')
             // 'thumbnail' => $thumbStore
         ]);
 
-        $property->save();
+        $mansion->save();
 
         return response([
 
-           'property' => $property,
-           'message' => 'Property Created Successfully'
+           'Mansion' => $mansion,
+           'message' => 'Mansion Created Successfully'
 
             ]);
-
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Property  $property
+     * @param  \App\Mansion  $mansion
      * @return \Illuminate\Http\Response
      */
-    public function show(Property $property)
+    public function show($id)
     {
-        //
+        $mansion = Mansion::where('id', $id)->get();
+
+        return response([
+            'Mansion' => $mansion,
+            'message' => 'Mansion Retrieved successfully'
+             ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Property  $property
+     * @param  \App\Mansion  $mansion
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-
-        $request->validate([
+        $this->validate($request, [
             // 'ownerId' => 'sometimes',
             'agentId' => 'required|integer',
-            'category' => 'required',
+            'title' => 'required',
             'address' => 'required',
             'location' => 'required',
             'description' => 'required',
@@ -213,13 +219,11 @@ class ShortLeasePropertyController extends Controller
             'city' => 'required|boolean',
             'water' => 'required|boolean',
             'park' => 'required|boolean',
-            // 'cordinate' => 'required',
             'image' => 'file|image|max:5000',
 
         ]);
 
-
-        $property = Property::find($id);
+        $mansion = Mansion::find($id);
 
         if($request->hasFile('image')){
             //get filename with extension
@@ -234,106 +238,105 @@ class ShortLeasePropertyController extends Controller
            //filename to store
            $filenametostore = $filename.'_'.time().'.'.$extension;
 
-           if ($property->image !== null){
-            Storage::disk('s3')->delete($property->image);
+           if ($mansion->image !== null){
+            Storage::disk('s3')->delete($mansion->image);
             }
            //Upload File to s3
            Storage::disk('s3')->put($filenametostore, fopen($request->file('image'), 'r+'), 'public');
            $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . '.amazonaws.com/'. $filenametostore;
        }
 
-
-
-        $property->owner_id = auth()->user()->id;
-        $property->agent_id = $request->get('agentId');
-        $property->category = $request->get('category');
-        $property->address = $request->get('address');
-        $property->location = $request->get('location');
-        $property->description = $request->get('description');
-        $property->type = $request->get('type');
-        $property->sub_type = $request->get('subType');
-        $property->home_type = $request->get('homeType');
-        $property->status = $request->get('status');
-        $property->bedroom = $request->get('bedroom');
-        $property->bathroom = $request->get('bathroom');
-        $property->half_bedroom = $request->get('halfBedroom');
-        $property->quarter_bedroom = $request->get('quarterBedroom');
-        $property->three_quarter_bedroom = $request->get('threeQuarterBedroom');
-        $property->size = $request->get('size');
-        $property->main_prize = $request->get('mainPrize');
-        $property->size_prize = $request->get('sizePrize');
-        $property->estimate_prize = $request->get('estimatePrize');
-        $property->year_built = $request->get('yearBuilt');
-        $property->heating = $request->get('heating');
-        $property->cooling = $request->get('cooling');
-        $property->parking = $request->get('parking');
-        $property->lot_size = $request->get('lotSize');
-        $property->story = $request->get('story');
-        $property->internet_tv = $request->get('internetTv');
-        $property->new_construction = $request->get('newConstruction');
-        $property->major_remodel_year = $request->get('majorRemodelYear');
-        $property->tax_value = $request->get('taxValue');
-        $property->annual_tax_amount = $request->get('annualTaxAmount');
-        $property->neighborhood = $request->get('neighborhood');
-        $property->transport = $request->get('transport');
-        $property->shopping =$request->get('shopping');
-        $property->school = $request->get('school');
-        $property->swimmimg_pool = $request->get('swimmimgPool');
-        $property->gym = $request->get('gym');
-        $property->city = $request->get('city');
-        $property->water = $request->get('water');
-        $property->park = $request->get('park');
-        $property->concierge = $request->get('concierge');
+       $mansion->owner_id = auth()->user()->id;
+        $mansion->agent_id = $request->get('agentId');
+        $mansion->title = $request->get('title');
+        $mansion->address = $request->get('address');
+        $mansion->location = $request->get('location');
+        $mansion->description = $request->get('description');
+        $mansion->type = $request->get('type');
+        $mansion->sub_type = $request->get('subType');
+        $mansion->home_type = $request->get('homeType');
+        $mansion->status = $request->get('status');
+        $mansion->bedroom = $request->get('bedroom');
+        $mansion->bathroom = $request->get('bathroom');
+        $mansion->half_bedroom = $request->get('halfBedroom');
+        $mansion->quarter_bedroom = $request->get('quarterBedroom');
+        $mansion->three_quarter_bedroom = $request->get('threeQuarterBedroom');
+        $mansion->size = $request->get('size');
+        $mansion->main_prize = $request->get('mainPrize');
+        $mansion->size_prize = $request->get('sizePrize');
+        $mansion->estimate_prize = $request->get('estimatePrize');
+        $mansion->year_built = $request->get('yearBuilt');
+        $mansion->heating = $request->get('heating');
+        $mansion->cooling = $request->get('cooling');
+        $mansion->parking = $request->get('parking');
+        $mansion->lot_size = $request->get('lotSize');
+        $mansion->story = $request->get('story');
+        $mansion->internet_tv = $request->get('internetTv');
+        $mansion->new_construction = $request->get('newConstruction');
+        $mansion->major_remodel_year = $request->get('majorRemodelYear');
+        $mansion->tax_value = $request->get('taxValue');
+        $mansion->annual_tax_amount = $request->get('annualTaxAmount');
+        $mansion->neighborhood = $request->get('neighborhood');
+        $mansion->transport = $request->get('transport');
+        $mansion->shopping =$request->get('shopping');
+        $mansion->school = $request->get('school');
+        $mansion->swimmimg_pool = $request->get('swimmimgPool');
+        $mansion->gym = $request->get('gym');
+        $mansion->city = $request->get('city');
+        $mansion->water = $request->get('water');
+        $mansion->park = $request->get('park');
+        $mansion->concierge = $request->get('concierge');
 
         if($request->hasFile('image')){
-            $property->image = $filenametostore;
-            $property->imageUrl = $imageUrl;
-            // $property->thumbnail = $thumbStore;
+            $mansion->image = $filenametostore;
+            $mansion->imageUrl = $imageUrl;
+            // $mansion->thumbnail = $thumbStore;
         }
-        $property->save();
+
+        if($request->hasFile('video')){
+            $mansion->video = $request->get('video');
+            $mansion->video_description = $request->get('video_description');
+            // $mansion->thumbnail = $thumbStore;
+        }
+        $mansion->save();
 
         return response([
 
-            'property' => $property,
-            'message' => 'Property Updated Successfully'
+            'Mansion' => $mansion,
+            'message' => 'Mansion Updated Successfully'
 
              ]);
-    // return response()->json($request->all());
 
     }
-
-
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Property  $property
+     * @param  \App\Mansion  $mansion
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $property = Property::findOrFail($id);
+        $mansion = Mansion::findOrFail($id);
 
         //Check if property exists before deleting
-        if (!isset($property)){
-            return response(['message' => 'No property Found']);
+        if (!isset($mansion)){
+            return response(['message' => 'No mansion Found']);
         }
 
         // Check for correct user
-        if(auth()->user()->id !==$property->owner_id){
+        if(auth()->user()->id !==$mansion->owner_id){
             return response(['message' => 'Unauthorized User']);
         }
 
-        if($property->image != null){
+        if($mansion->image != null){
             // Delete Image
-            Storage::disk('s3')->delete($property->image);
+            Storage::disk('s3')->delete($mansion->image);
         }
 
-        $property->delete();
+        $mansion->delete();
         return response([
-            'message' => 'Property Deleted Successfully'
+            'message' => 'Mansion Deleted Successfully'
         ]);
     }
-
-
 }
