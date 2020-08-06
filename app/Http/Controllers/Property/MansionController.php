@@ -295,7 +295,7 @@ class MansionController extends Controller
 
         if($request->hasFile('video')){
             $mansion->video = $request->get('video');
-            $mansion->video_description = $request->get('video_description');
+            $mansion->video_description = $request->get('videoDescription');
             // $mansion->thumbnail = $thumbStore;
         }
         $mansion->save();
