@@ -21,7 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // Route::patch('/users', 'UserController@update');
 
 Route::post('/login', 'AuthController@login');
+Route::post('/adminLoginn', 'AuthController@adminLogin');
 Route::post('/register', 'AuthController@register');
+Route::post('/adminRegisterr', 'AuthController@adminRegister');
 
 
 Route::middleware('auth:api')->group(function () {
