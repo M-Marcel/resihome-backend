@@ -79,8 +79,8 @@ Route::get('/propertylong', 'Property\LongLeasePropertyController@index');
 Route::get('/propertyshort', 'Property\ShortLeasePropertyController@index');
 
 Route::get('/property/{id}', 'PropertyController@show');
-Route::get('/allMansion', 'MansionController@index');
-Route::get('/showMansion', 'MansionController@show');
+Route::get('/allMansion', 'Property\MansionController@index');
+Route::get('/showMansion', 'Property\MansionController@show');
 Route::get('/search', 'PropertyController@search');
 Route::get('/sold', 'PropertyController@sold');
 Route::get('/isSold/{id}', 'PropertyController@isSold');
