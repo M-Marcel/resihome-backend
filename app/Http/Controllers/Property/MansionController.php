@@ -20,7 +20,7 @@ class MansionController extends Controller
         return response([
 
             'Mansion' => $mansion,
-            'message' => 'Mansion Created Successfully'
+            'message' => 'Mansion Loaded Successfully'
 
              ]);
     }

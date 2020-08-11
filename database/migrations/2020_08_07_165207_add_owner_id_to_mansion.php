@@ -14,7 +14,7 @@ class AddOwnerIdToMansion extends Migration
     public function up()
     {
         Schema::table('mansion', function (Blueprint $table) {
-            $table->foreignId('owner_id')->nullable();
+            // $table->foreignId('owner_id')->nullable();
         });
     }
 

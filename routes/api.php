@@ -46,6 +46,13 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/remove/{id}', 'Property\PropertyUserController@removeSaved');
     Route::get('/userproperty', 'PropertyController@index');
 
+    // Contact us
+    Route::get('/getcontactus', 'ContactusController@index');
+    Route::get('/getcontactus/{contactId}', 'ContactusController@show');
+
+    // Contact Agent
+    Route::get('/getcontactagent', 'ContactAgentController@index');
+    Route::get('/getcontactagent/{contactId}', 'ContactAgentController@show');
 });
 
 // Route::get('userimage/{filename}', 'PhotoController@profileImage');
@@ -84,6 +91,12 @@ Route::get('/showMansion/{mansionid}', 'Property\MansionController@show');
 Route::get('/search', 'PropertyController@search');
 Route::get('/sold', 'PropertyController@sold');
 Route::get('/isSold/{id}', 'PropertyController@isSold');
+
+// Contact Us
+Route::post('/contactus', 'ContactusController@store');
+
+// Contact Agent
+Route::post('/contactagent', 'ContactAgentController@store');
 
 // Route::post('/test', function()
 // {
