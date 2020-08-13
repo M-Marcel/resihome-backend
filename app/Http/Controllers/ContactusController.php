@@ -21,6 +21,7 @@ class ContactusController extends Controller
             'message' => 'All Request Loaded Successfully'
 
              ]);
+
     }
 
     /**
@@ -59,6 +60,7 @@ class ContactusController extends Controller
 
                 ]);
     }
+
 
     /**
      * Display the specified resource.
