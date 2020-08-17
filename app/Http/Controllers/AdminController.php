@@ -29,7 +29,7 @@ class AdminController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        if ($admin->is_admin == 1){
+        if ($admin->is_superadmin == 1){
 
             $admin =  Admin::create([
             'email' => $request->email,
@@ -70,7 +70,7 @@ class AdminController extends Controller
     public function show($id)
     {
 
-        $admin = Admin::where('id', $id)->get();
+        $admin = Admin::find(Auth::user()->id);
 
         if ($admin->is_admin == 1){
 
@@ -90,6 +90,10 @@ class AdminController extends Controller
      */
     public function update(Request $request, Admin $admin)
     {
+
+        $admin = Admin::find(Auth::user()->id);
+
+        if ($admin->is_admin == 1){
         $request->validate([
             // 'email' => 'string|email|max:255|unique:users',
             'firstName' => 'string',
@@ -185,6 +189,11 @@ class AdminController extends Controller
         'message' => 'Admin Updated Successfully'
 
             ]);
+
+        }else{
+
+            return response(['message' => 'Unauthorized access']);
+        }
     }
 
     /**
@@ -195,6 +204,17 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
-        //
+        $admin = Admin::find(Auth::user()->id);
+
+        if ($admin->is_admin == 1){
+
+            $admin->delete();
+
+            return response(['message' => 'Admin Deleted successfully']);
+        }else{
+
+            return response(['message' => 'Unauthorized access']);
+        }
+
     }
 }
