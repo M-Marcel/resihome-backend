@@ -23,7 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/login', 'AuthController@login');
 Route::post('/adminLoginn', 'AuthController@adminLogin');
 Route::post('/register', 'AuthController@register');
-Route::post('/adminRegisterr', 'AuthController@adminRegister');
+
 
 
 Route::middleware('auth:api')->group(function () {
@@ -53,6 +53,11 @@ Route::middleware('auth:api')->group(function () {
     // Contact Agent
     Route::get('/getcontactagent', 'ContactAgentController@index');
     Route::get('/getcontactagent/{contactId}', 'ContactAgentController@show');
+
+    //Admin
+    Route::post('/adminRegisterr', 'AdminController@adminRegister');
+    Route::apiResource('/resiadmin', 'AdminController');
+    // Route::post('/update', 'AdminController@update');
 });
 
 // Route::get('userimage/{filename}', 'PhotoController@profileImage');
