@@ -93,7 +93,7 @@ Route::get('/propertyshort', 'Property\ShortLeasePropertyController@index');
 Route::get('/property/{id}', 'PropertyController@show');
 Route::get('/allMansion', 'Property\MansionController@index');
 Route::get('/showMansion/{mansionid}', 'Property\MansionController@show');
-Route::get('/search', 'PropertyController@search');
+Route::post('/search', 'PropertyController@search');
 Route::get('/sold', 'PropertyController@sold');
 Route::get('/isSold/{id}', 'PropertyController@isSold');
 
