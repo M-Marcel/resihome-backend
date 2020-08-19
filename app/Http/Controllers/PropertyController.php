@@ -101,65 +101,65 @@ class PropertyController extends Controller
         //     ->where('category', 'like', '%'.$request->propertyType.'%')->get();
 
 
-            if (!empty($request->propertyType)) {
-                $property = $property->where('category', 'like', '%'.$request->propertyType.'%');
-            }
+            // if (!empty($request->propertyType)) {
+            //     $property = $property->where('category', 'like', '%'.$request->propertyType.'%');
+            // }
 
-            if (!empty($request->gym)) {
-                $property = $property->where('gym', 'like', '%'.$request->gym.'%');
-            }
+            // if (!empty($request->gym)) {
+            //     $property = $property->where('gym', 'like', '%'.$request->gym.'%');
+            // }
 
             if (!empty($request->location)) {
                 $property = $property->where('location', 'like', '%'.$request->location.'%');
             }
 
-            if (!empty($request->schools)) {
-                $property = $property->where('school', 'like', '%'.$request->schools.'%');
-            }
+            // if (!empty($request->schools)) {
+            //     $property = $property->where('school', 'like', '%'.$request->schools.'%');
+            // }
 
-            if (!empty($minPrize)) {
-                $property = $property->where('main_prize', '<=', '%'.$minPrize.'%');
-            }
+            // if (!empty($minPrize)) {
+            //     $property = $property->where('main_prize', '<=', '%'.$minPrize.'%');
+            // }
 
-            if (!empty($maxPrize)) {
-                $property = $property->where('main_prize', '>=', '%'.$maxPrize.'%');
-            }
+            // if (!empty($maxPrize)) {
+            //     $property = $property->where('main_prize', '>=', '%'.$maxPrize.'%');
+            // }
 
-            if (!empty($minPropertySizes)) {
-                $property = $property->where('size', '<=', '%'.$minPropertySizes.'%');
-            }
+            // if (!empty($minPropertySizes)) {
+            //     $property = $property->where('size', '<=', '%'.$minPropertySizes.'%');
+            // }
 
-            if (!empty($maxPropertySizes)) {
-                $property = $property->where('size', '>=', '%'.$maxPropertySizes.'%');
-            }
+            // if (!empty($maxPropertySizes)) {
+            //     $property = $property->where('size', '>=', '%'.$maxPropertySizes.'%');
+            // }
 
-            if (!empty($minCarSpaces)) {
-                $property = $property->where('lot_size', '<=', '%'.$minCarSpaces.'%');
-            }
+            // if (!empty($minCarSpaces)) {
+            //     $property = $property->where('lot_size', '<=', '%'.$minCarSpaces.'%');
+            // }
 
-            if (!empty($maxCarSpaces)) {
-                $property = $property->where('lot_size', '>=', '%'.$maxCarSpaces.'%');
-            }
+            // if (!empty($maxCarSpaces)) {
+            //     $property = $property->where('lot_size', '>=', '%'.$maxCarSpaces.'%');
+            // }
 
-            if (!empty($minBathrooms)) {
-                $property = $property->where('bathroom', '<=', '%'.$minBathrooms.'%');
-            }
+            // if (!empty($minBathrooms)) {
+            //     $property = $property->where('bathroom', '<=', '%'.$minBathrooms.'%');
+            // }
 
-            if (!empty($maxBathrooms)) {
-                $property = $property->where('bathroom', '>=', '%'.$maxBathrooms.'%');
-            }
+            // if (!empty($maxBathrooms)) {
+            //     $property = $property->where('bathroom', '>=', '%'.$maxBathrooms.'%');
+            // }
 
-            if (!empty($transports)) {
-                $property = $property->where('transport', '>=', '%'.$transports.'%');
-            }
+            // if (!empty($transports)) {
+            //     $property = $property->where('transport', '>=', '%'.$transports.'%');
+            // }
 
-            if (!empty($shoppings)) {
-                $property = $property->where('shopping', '>=', '%'.$shoppings.'%');
-            }
+            // if (!empty($shoppings)) {
+            //     $property = $property->where('shopping', '>=', '%'.$shoppings.'%');
+            // }
 
-            if (!empty($swimmingPool)) {
-                $property = $property->where('swimmimg_pool', '>=', '%'.$swimmingPool.'%');
-            }
+            // if (!empty($swimmingPool)) {
+            //     $property = $property->where('swimmimg_pool', '>=', '%'.$swimmingPool.'%');
+            // }
 
             $properties = $property->get();
 
