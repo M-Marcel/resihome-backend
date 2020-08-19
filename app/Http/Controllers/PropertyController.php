@@ -109,9 +109,9 @@ class PropertyController extends Controller
             //     $property = $property->where('gym', 'like', '%'.$request->gym.'%');
             // }
 
-            if (!empty($request->location)) {
-                $property = $property->where('location', 'like', '%'.$request->location.'%');
-            }
+            // if (!empty($request->location)) {
+            //     $property = $property->where('location', 'like', '%'.$request->location.'%');
+            // }
 
             // if (!empty($request->schools)) {
             //     $property = $property->where('school', 'like', '%'.$request->schools.'%');
@@ -160,7 +160,7 @@ class PropertyController extends Controller
             // if (!empty($swimmingPool)) {
             //     $property = $property->where('swimmimg_pool', '>=', '%'.$swimmingPool.'%');
             // }
-
+dd($property);
             $properties = $property->get();
 
 
