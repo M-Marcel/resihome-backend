@@ -94,6 +94,7 @@ Route::get('/property/{id}', 'PropertyController@show');
 Route::get('/allMansion', 'Property\MansionController@index');
 Route::get('/showMansion/{mansionid}', 'Property\MansionController@show');
 Route::post('/search', 'PropertyController@search');
+Route::post('/homesearch', 'PropertyController@mainSearch');
 Route::get('/sold', 'PropertyController@sold');
 Route::get('/isSold/{id}', 'PropertyController@isSold');
 

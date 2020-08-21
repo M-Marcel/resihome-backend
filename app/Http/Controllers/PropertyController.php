@@ -101,76 +101,79 @@ class PropertyController extends Controller
         //     ->where('category', 'like', '%'.$request->propertyType.'%')->get();
 
 
-            // if (!empty($request->category)) {
-            //     $property = $property->where('category', 'like', '%'.$request->category.'%');
-            // }
-
-            if (!empty($request->transports)) {
-                $property = $property->where('transport', 'like', '%'.$request->transports.'%');
+            if (!empty($request->category)) {
+                $property = $property->where('category', 'like', '%'.$request->category.'%');
             }
 
-            // if (!empty($request->shoppings)) {
-            //     $property = $property->where('shopping', '=', '%'.$request->shoppings.'%');
+            if (!empty($request->transports)) {
+                $property = $property->where('transport', $request->transports);
+            }
+            // if (!empty($request->ownerId)) {
+            //     $property = $property->where('owner_id', $request->ownerId);
             // }
 
-            // if (!empty($request->swimmingPool)) {
-            //     $property = $property->where('swimmimg_pool', '=', '%'.$request->swimmingPool.'%');
-            // }
+            if (!empty($request->shoppings)) {
+                $property = $property->where('shopping', $request->shoppings);
+            }
 
-            // if (!empty($request->gym)) {
-            //     $property = $property->where('gym', '=', '%'.$request->gym.'%');
-            // }
+            if (!empty($request->swimmingPool)) {
+                $property = $property->where('swimmimg_pool', $request->swimmingPool);
+            }
 
-            // if (!empty($request->schools)) {
-            //     $property = $property->where('school', '=', '%'.$request->schools.'%');
-            // }
+            if (!empty($request->gym)) {
+                $property = $property->where('gym', $request->gym);
+            }
 
-            // if (!empty($request->concierge)) {
-            //     $property = $property->where('concierge', 'like', '%'.$request->concierge.'%');
-            // }
+            if (!empty($request->schools)) {
+                $property = $property->where('school', $request->schools);
+            }
+
+            if (!empty($request->concierge)) {
+                $property = $property->where('concierge', $request->concierge);
+            }
 
             if (!empty($request->location)) {
                 $property = $property->where('location', 'like', '%'.$request->location.'%');
             }
 
-            if (!empty($request->homeType)) {
-                $property = $property->where('type', '=', '%'.$request->homeType.'%');
+            if (!empty($request->propertyType)) {
+                $property = $property->where('type', $request->propertyType);
             }
 
 
 
 
-            // if (!empty($request->minPrize)) {
-            //     $property = $property->where('main_prize', '>=', '%'.$request->minPrize.'%');
-            // }
+            if (!empty($request->minPrize)) {
+                $property = $property->where('main_prize', '>=', '%'.$request->minPrize.'%');
+            }
 
-            // if (!empty($request->maxPrize)) {
-            //     $property = $property->where('main_prize', '<=', '%'.$request->maxPrize.'%');
-            // }
+            if (!empty($request->maxPrize)) {
+                $property = $property->where('main_prize', '<=', '%'.$request->maxPrize.'%');
+            }
 
-            // if (!empty($request->minPropertySizes)) {
-            //     $property = $property->where('size', '>=', '%'.$request->minPropertySizes.'%');
-            // }
+            if (!empty($request->minPropertySizes)) {
+                $property = $property->where('size', '>=', '%'.$request->minPropertySizes.'%');
+            }
 
             // // if (!empty($request->maxPropertySizes)) {
             // //     $property = $property->where('size', '<=', '%'.$request->maxPropertySizes.'%');
             // // }
 
-            // if (!empty($request->minCarSpaces)) {
-            //     $property = $property->where('lot_size', '>=', '%'.$request->minCarSpaces.'%');
-            // }
+            if (!empty($request->minCarSpaces)) {
+                $property = $property->where('lot_size', '>=', '%'.$request->minCarSpaces.'%');
+            }
 
             // // if (!empty($request->maxCarSpaces)) {
             // //     $property = $property->where('lot_size', '<=', '%'.$request->maxCarSpaces.'%');
             // // }
 
-            // if (!empty($request->minBathrooms)) {
-            //     $property = $property->where('bathroom', '>=', '%'.$request->minBathrooms.'%');
-            // }
+            if (!empty($request->minBathrooms)) {
+                $property = $property->where('bathroom', '>=', '%'.$request->minBathrooms.'%');
+            }
 
-            // if (!empty($request->keywords)) {
-            //     $property = $property->where('description', 'like', '%'.$request->keywords.'%');
-            // }
+            if (!empty($request->keywords)) {
+                $property = $property->where('description', 'like', '%'.$request->keywords.'%');
+            }
 
             // $properties = $property->get();
             // return $properties;
@@ -205,6 +208,48 @@ class PropertyController extends Controller
     //         $users = DB::table('users')
     //                         ->where('name', 'like', 'T%')
     //                         ->get();
+
+        $properties = $property->get();
+        return response($properties);
+    }
+
+    public function mainSearch(Request $request){
+
+        $property = Property::query();
+
+
+            if (!empty($request->address)) {
+                $property = $property->where('address', 'like', '%'.$request->address.'%');
+            }
+
+            if (!empty($request->propertyType)) {
+                $property = $property->where('type', $request->propertyType);
+            }
+
+            if (!empty($request->availableDate)) {
+                $property = $property->where('available_date', $request->availableDate);
+            }
+
+            if (!empty($request->minPrize)) {
+                $property = $property->where('main_prize', '>=', '%'.$request->minPrize.'%');
+            }
+
+            if (!empty($request->maxPrize)) {
+                $property = $property->where('main_prize', '<=', '%'.$request->maxPrize.'%');
+            }
+
+
+            if (!empty($request->minBathrooms)) {
+                $property = $property->where('bathroom', '>=', '%'.$request->minBathrooms.'%');
+            }
+
+            if (!empty($request->maxBathrooms)) {
+                $property = $property->where('bathroom', '<=', '%'.$request->maxBathrooms.'%');
+            }
+
+            if (!empty($request->keywords)) {
+                $property = $property->where('description', 'like', '%'.$request->keywords.'%');
+            }
 
         $properties = $property->get();
         return response($properties);
