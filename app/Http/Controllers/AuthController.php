@@ -6,6 +6,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Socialite;
 
 class AuthController extends Controller
 {
@@ -143,5 +145,33 @@ class AuthController extends Controller
         });
 
         return response()->json('Logged out successfully', 200);
+    }
+
+    public function redirectToProvider($provider)
+    {
+        return Socialite::driver($provider)->stateless()->redirect();
+    }
+
+
+    public function handleProviderCallback()
+    {
+
+        $user = Socialite::driver('google')->stateless()->user();
+
+        /* HERE CREATE USER WITH YOUR APP LOGIC. If email is unique... */
+
+        // Login the created user
+        Auth::login($user, true);
+
+        // Get the username (or wathever you want to return in the JWT).
+        $success['name'] = Auth::user()->name;
+        // Create a new access_token for the session (Passport)
+        $success['token'] = Auth::user()->createToken('Resihome')->accessToken;
+
+        // Create new view (I use callback.blade.php), and send the token and the name.
+        return response([
+            'name' => $success['name'],
+            'token' => $success['token'],
+        ]);
     }
 }

@@ -18,7 +18,7 @@ class PropertyImageController extends Controller
      */
     public function index()
     {
-        //
+       return('testing');
     }
 
     /**
@@ -36,7 +36,8 @@ class PropertyImageController extends Controller
 
         //
 
-        $property = Property::find($request->get('propertyId'));
+        // $property = Property::find($request->get('propertyId'))->get();
+        $property = $property = Property::findOrFail($request->get('propertyId'));
 
 
         if($request->hasFile('image')){
@@ -72,11 +73,20 @@ class PropertyImageController extends Controller
         // $image = Image::make(public_path('propertyImages/ '. $property->property_images))->fit(500, 500);
         // $image->save();
 
-        return response([ 'propertyImage' => PropertyResource::collection($property->property_images), 'message' => 'Retrieved successfully'], 200);
+        // return response([ 'propertyImage' => PropertyResource::collection($property->property_images), 'message' => 'Retrieved successfully'], 200);
+        dd($property->property_images);
+
+        return response([
+
+            'Property images' => $property->property_images,
+            'message' => 'Retrieved successfully'
+
+             ]);
+
 
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'propertyId' => 'integer',
@@ -86,6 +96,8 @@ class PropertyImageController extends Controller
         //
 
         $property = Property::find($request->get('propertyId'));
+        $image =  $property->property_images()
+                            ->where('id', $id);
 
 
         if($request->hasFile('image')){
@@ -111,18 +123,29 @@ class PropertyImageController extends Controller
 
        if (request()->has('image')){
         $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . '.amazonaws.com/'. $filenametostore;
-            $property->property_images()->create([
-                'original' => $filenametostore,
-                'imageUrl' => $imageUrl,
-                // 'thumbnail' => 'thumb'.time().$originalImage->getClientOriginalName(),
-            ]);
+            // $property->property_images()->create([
+            //     'original' => $filenametostore,
+            //     'imageUrl' => $imageUrl,
+            //     // 'thumbnail' => 'thumb'.time().$originalImage->getClientOriginalName(),
+            // ]);
+
+            $image->original = $filenametostore;
+            $image->imageUrl = $imageUrl;
+            $image->save();
+
         }
 
         // $image = Image::make(public_path('propertyImages/ '. $property->property_images))->fit(500, 500);
         // $image->save();
 
-        return response([ 'propertyImage' => PropertyResource::collection($property->property_images), 'message' => 'Retrieved successfully'], 200);
+        // return response([ 'propertyImage' => PropertyResource::collection($property->property_images), 'message' => 'Retrieved successfully'], 200);
 
+        return response([
+
+            'Property image' => $image,
+            'message' => 'Retrieved successfully'
+
+             ]);
     }
 
     /**
@@ -134,12 +157,19 @@ class PropertyImageController extends Controller
     public function show(Request $request)
     {
 
-    //     $request->validate([
-    //         'propertyId' => 'integer',
-    //         'image' => 'sometimes|file|image|max:5000',
-    //     ]);
+        $request->validate([
+            'propertyId' => 'integer',
+            'id' => 'integer',
+        ]);
 
-    //     $property = Property::find($propertyId);
+        $property = Property::find($request->get('propertyId'));
+
+       $image =  $property->property_images()
+                            ->where('id', $request->get('id'))
+                            ->get();
+        // $property = Property_image::where('id', $request->get('id'))
+        //                             ->where('propertyId', $request->get('propertyId'))
+        //                             ->get();
 
     //     if($request->hasFile('image')){
     //         //get filename with extension
@@ -174,8 +204,13 @@ class PropertyImageController extends Controller
         // $image = Image::make(public_path('propertyImages/ '. $property->property_images))->fit(500, 500);
         // $image->save();
 
-        return response([ 'propertyImage' => PropertyResource::collection($property->property_images), 'message' => 'Retrieved successfully'], 200);
+        // return response([ 'propertyImage' => PropertyResource::collection($property->property_images), 'message' => 'Retrieved successfully'], 200);
+        return response([
 
+            'Property image' => $image,
+            'message' => 'Retrieved successfully'
+
+             ]);
 
 
     }
