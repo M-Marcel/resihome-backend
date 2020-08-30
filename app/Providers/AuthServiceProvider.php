@@ -42,5 +42,11 @@ class AuthServiceProvider extends ServiceProvider
 
         // Passport::personalAccessTokensExpireIn(now()->addMonths(6));
 
+        Passport::personalAccessClientSecret(config('X69mFyApSkIKQ9WETDv20JGvgAzW4Vckv6vXJ2KW'));
+
+        Passport::personalAccessClientId(config('9123fc6c-88cf-4915-8cd2-33f2785f4283'));
+
+
+
     }
 }

@@ -25,6 +25,10 @@ class User extends Authenticatable
     public function properties(){
         return $this->belongsToMany(Property::class)->withTimestamps();
     }
+
+    public function socialAccounts(){
+        return $this->hasMany(SocialAccount::class);
+    }
     /**
      * The attributes that should be hidden for arrays.
      *

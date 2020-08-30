@@ -26,8 +26,8 @@ Route::post('/adminLoginn', 'AuthController@adminLogin');
 Route::post('/register', 'AuthController@register');
 
 
-Route::get('/sign-in/{provider}', 'AuthController@redirectToProvider');
-Route::get('/sign-in/redirect', 'AuthController@handleProviderCallback');
+Route::get('/sign-in/{provider}/redirect', 'AuthController@redirectToProvider');
+Route::get('/sign-in/{provider}/callback', 'AuthController@handleProviderCallback');
 
 
 

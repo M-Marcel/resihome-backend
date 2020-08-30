@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\SocialAccount;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Socialite;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -153,25 +155,103 @@ class AuthController extends Controller
     }
 
 
-    public function handleProviderCallback()
+    public function handleProviderCallback($provider)
     {
 
-        $user = Socialite::driver('google')->stateless()->user();
+        // $user = Socialite::driver('google')->user();
+        $user = Socialite::driver($provider)->stateless()->user();
 
+        if(!$user->token){
+            dd('failed');
+        }
+
+        $appUser = User::whereEmail($user->email)->first();
+
+        if(!$appUser){
+            //Create user and add social account
+            $appUser = User::create([
+                'email' => $user->email,
+                'password' => Str::random(8),
+                'user_role' => 2,
+                // 'user_role' => $userRole,
+                'firstname' => $user->name,
+                // 'lastname' => $user->name
+            ]);
+
+            $socialAccount = SocialAccount::create([
+                'provider' => $provider,
+                'provider_user_id' => $user->id,
+                'user_id' => $appUser->id
+            ]);
+
+        }else{
+            //user already exist
+            $socialAccount =  $appUser->socialAccounts()->where('provider', $provider)->first();
+
+            if(!$socialAccount){
+                //create social account
+                $socialAccount = SocialAccount::create([
+                    'provider' => $provider,
+                    'provider_user_id' => $user->id,
+                    'user_id' => $appUser->id
+                ]);
+            }
+
+        }
+        //login our user and get the token
+        $passportToken = $appUser->createToken('Login token');
+
+        return response()->json([
+            'access_token' => $passportToken
+        ]);
+
+        dd($user, $passportToken)->accessToken;
         /* HERE CREATE USER WITH YOUR APP LOGIC. If email is unique... */
 
         // Login the created user
-        Auth::login($user, true);
+        // Auth::login($user, true);
+        // dd($user);
 
-        // Get the username (or wathever you want to return in the JWT).
-        $success['name'] = Auth::user()->name;
-        // Create a new access_token for the session (Passport)
-        $success['token'] = Auth::user()->createToken('Resihome')->accessToken;
+        // // Get the username (or wathever you want to return in the JWT).
+        // $success['name'] = Auth::user()->name;
+        // // Create a new access_token for the session (Passport)
+        // $success['token'] = Auth::user()->createToken('Resihome')->accessToken;
 
-        // Create new view (I use callback.blade.php), and send the token and the name.
-        return response([
-            'name' => $success['name'],
-            'token' => $success['token'],
-        ]);
+        // // Create new view (I use callback.blade.php), and send the token and the name.
+        // return response([
+        //     'name' => $success['name'],
+        //     'token' => $success['token'],
+        // ]);
+
+
+
+        // try {
+
+        //     $user = Socialite::driver('google')->user();
+
+        //     $finduser = User::where('google_id', $user->id)->first();
+
+        //     if($finduser){
+
+        //         Auth::login($finduser);
+
+        //         return redirect('/home');
+
+        //     }else{
+        //         $newUser = User::create([
+        //             'name' => $user->name,
+        //             'email' => $user->email,
+        //             'google_id'=> $user->id,
+        //             'password' => encrypt('123456dummy')
+        //         ]);
+
+        //         Auth::login($newUser);
+
+        //         return redirect('/home');
+        //     }
+
+        // } catch (Exception $e) {
+        //     dd($e->getMessage());
+        // }
     }
 }
