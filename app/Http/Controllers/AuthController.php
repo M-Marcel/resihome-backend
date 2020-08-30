@@ -205,53 +205,7 @@ class AuthController extends Controller
             'access_token' => $passportToken
         ]);
 
-        dd($user, $passportToken)->accessToken;
-        /* HERE CREATE USER WITH YOUR APP LOGIC. If email is unique... */
+        // dd($user, $passportToken)->accessToken;
 
-        // Login the created user
-        // Auth::login($user, true);
-        // dd($user);
-
-        // // Get the username (or wathever you want to return in the JWT).
-        // $success['name'] = Auth::user()->name;
-        // // Create a new access_token for the session (Passport)
-        // $success['token'] = Auth::user()->createToken('Resihome')->accessToken;
-
-        // // Create new view (I use callback.blade.php), and send the token and the name.
-        // return response([
-        //     'name' => $success['name'],
-        //     'token' => $success['token'],
-        // ]);
-
-
-
-        // try {
-
-        //     $user = Socialite::driver('google')->user();
-
-        //     $finduser = User::where('google_id', $user->id)->first();
-
-        //     if($finduser){
-
-        //         Auth::login($finduser);
-
-        //         return redirect('/home');
-
-        //     }else{
-        //         $newUser = User::create([
-        //             'name' => $user->name,
-        //             'email' => $user->email,
-        //             'google_id'=> $user->id,
-        //             'password' => encrypt('123456dummy')
-        //         ]);
-
-        //         Auth::login($newUser);
-
-        //         return redirect('/home');
-        //     }
-
-        // } catch (Exception $e) {
-        //     dd($e->getMessage());
-        // }
     }
 }
