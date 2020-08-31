@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Http\Request;
 
-class AgentController extends Controller
+class BuilderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class AgentController extends Controller
      */
     public function index()
     {
-        $agents = User::where('user_role', '3')->get();
-        return response($agents);
+        //
     }
 
     /**
@@ -32,10 +31,10 @@ class AgentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
         //
     }
@@ -44,58 +43,58 @@ class AgentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         //
     }
 
-    public function agentSearch(Request $request){
+    public function builderSearch(Request $request){
 
-        $agent = User::query();
+        $builder = User::query();
 
 
             if (!empty($request->location)) {
-                $agent = $agent->where('user_role', 3);
+                $builder = $builder->where('user_role', 4);
             }
 
             if (!empty($request->location)) {
-                $agent = $agent->where('address', 'like', '%'.$request->location.'%');
+                $builder = $builder->where('address', 'like', '%'.$request->location.'%');
             }
 
             if (!empty($request->location)) {
-                $agent = $agent->where('city', 'like', '%'.$request->location.'%');
+                $builder = $builder->where('city', 'like', '%'.$request->location.'%');
             }
             if (!empty($request->location)) {
-                $agent = $agent->where('state', 'like', '%'.$request->location.'%');
+                $builder = $builder->where('state', 'like', '%'.$request->location.'%');
             }
             if (!empty($request->location)) {
-                $agent = $agent->where('country', 'like', '%'.$request->location.'%');
+                $builder = $builder->where('country', 'like', '%'.$request->location.'%');
             }
             if (!empty($request->location)) {
-                $agent = $agent->where('company_address', 'like', '%'.$request->location.'%');
+                $builder = $builder->where('company_address', 'like', '%'.$request->location.'%');
             }
             if (!empty($request->name)) {
-                $agent = $agent->where('firstname', 'like', '%'.$request->name.'%');
+                $builder = $builder->where('firstname', 'like', '%'.$request->name.'%');
             }
             if (!empty($request->name)) {
-                $agent = $agent->where('lastname', 'like', '%'.$request->name.'%');
+                $builder = $builder->where('lastname', 'like', '%'.$request->name.'%');
             }
 
 
-        $agent = $agent->get();
-        return response($agent);
+        $builder = $builder->get();
+        return response($builder);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
     }

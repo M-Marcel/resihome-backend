@@ -84,6 +84,7 @@ Route::post('/property1own', 'Property\ByOwnerPropertyController@update');
 Route::get('/imageAll', 'Property\PropertyImageController@index');
 // Route::get('/testImage', 'Property\PropertyImageController@index');
 Route::get('/imageShow/{imageId}', 'Property\PropertyImageController@show');
+Route::get('/allUser', 'UserController@allUser');
 
 
 
@@ -103,6 +104,9 @@ Route::get('/showMansion/{mansionid}', 'Property\MansionController@show');
 //Search
 Route::post('/search', 'PropertyController@search');
 Route::post('/homesearch', 'PropertyController@mainSearch');
+Route::post('/agentsearch', 'AgentController@agentSearch');
+Route::post('/renosearch', 'RenoController@renoSearch');
+Route::post('/buildersearch', 'BuilderController@builderSearch');
 
 //Sold Property
 Route::get('/sold', 'PropertyController@sold');

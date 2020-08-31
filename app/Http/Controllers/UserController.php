@@ -22,6 +22,13 @@ class UserController extends Controller
         return response($user);
     }
 
+    public function allUser()
+    {
+        $allUser = User::whereIs_superadmin(0)->get();
+        // dd($user);
+        return response($allUser);
+    }
+
 
     /**
      * Store a newly created resource in storage.
