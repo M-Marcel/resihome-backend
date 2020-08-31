@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67698f48d20332a3750166dd2ad67d99",
+    "content-hash": "ada4bf52e71ceeb12d72b557b45dc69f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -60,16 +60,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.150.3",
+            "version": "3.151.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4c4e1cef09a6b510eae7a871ec394d124b5005fe"
+                "reference": "7191394eb44edee26db739207c432e408cd6a26f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4c4e1cef09a6b510eae7a871ec394d124b5005fe",
-                "reference": "4c4e1cef09a6b510eae7a871ec394d124b5005fe",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7191394eb44edee26db739207c432e408cd6a26f",
+                "reference": "7191394eb44edee26db739207c432e408cd6a26f",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-08-24T18:17:53+00:00"
+            "time": "2020-08-28T18:11:11+00:00"
         },
         {
             "name": "brick/math",
@@ -1268,16 +1268,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.26.0",
+            "version": "v7.26.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f64299a11dedaaadf1cfff07b2b3220a9b791837"
+                "reference": "fad3e5f03b9ae89853c8a0925231d2b3ce07a9c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/f64299a11dedaaadf1cfff07b2b3220a9b791837",
-                "reference": "f64299a11dedaaadf1cfff07b2b3220a9b791837",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/fad3e5f03b9ae89853c8a0925231d2b3ce07a9c3",
+                "reference": "fad3e5f03b9ae89853c8a0925231d2b3ce07a9c3",
                 "shasum": ""
             },
             "require": {
@@ -1422,7 +1422,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-08-25T13:44:44+00:00"
+            "time": "2020-08-27T14:22:46+00:00"
         },
         {
             "name": "laravel/passport",
@@ -2332,16 +2332,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.9.0",
+            "version": "v4.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "aaee038b912e567780949787d5fe1977be11a778"
+                "reference": "88e519766fc58bd46b8265561fb79b54e2e00b28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/aaee038b912e567780949787d5fe1977be11a778",
-                "reference": "aaee038b912e567780949787d5fe1977be11a778",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/88e519766fc58bd46b8265561fb79b54e2e00b28",
+                "reference": "88e519766fc58bd46b8265561fb79b54e2e00b28",
                 "shasum": ""
             },
             "require": {
@@ -2380,7 +2380,7 @@
                 "parser",
                 "php"
             ],
-            "time": "2020-08-18T19:48:01+00:00"
+            "time": "2020-08-30T16:15:20+00:00"
         },
         {
             "name": "nyholm/psr7",
@@ -3344,6 +3344,107 @@
                 "uuid"
             ],
             "time": "2020-08-18T17:17:46+00:00"
+        },
+        {
+            "name": "socialiteproviders/apple",
+            "version": "v3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/Apple.git",
+                "reference": "792ab3b1041b46193ec59fbb4587b7723258f87e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Apple/zipball/792ab3b1041b46193ec59fbb4587b7723258f87e",
+                "reference": "792ab3b1041b46193ec59fbb4587b7723258f87e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-openssl": "*",
+                "firebase/php-jwt": "^5.2",
+                "lcobucci/jwt": "^3.3",
+                "php": "^7.2",
+                "socialiteproviders/manager": "~2.0 || ~3.0"
+            },
+            "suggest": {
+                "ahilmurugesan/socialite-apple-helper": "Automatic Apple client key generation and management."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Apple\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ahilan",
+                    "email": "ahilmurugesan@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Vamsi Krishna V",
+                    "email": "vamsi@vonectech.com",
+                    "homepage": "https://vonectech.com/",
+                    "role": "Farmer"
+                }
+            ],
+            "description": "Apple OAuth2 Provider for Laravel Socialite",
+            "keywords": [
+                "apple",
+                "apple client key",
+                "apple sign in",
+                "client key generator",
+                "client key refresh",
+                "laravel",
+                "laravel apple",
+                "laravel socialite",
+                "sign in with apple",
+                "socialite",
+                "socialite apple"
+            ],
+            "time": "2020-08-29T23:44:10+00:00"
+        },
+        {
+            "name": "socialiteproviders/facebook",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/Facebook.git",
+                "reference": "c89d5fa4c770c9e1ec0e472ccb7dd7353a199619"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Facebook/zipball/c89d5fa4c770c9e1ec0e472ccb7dd7353a199619",
+                "reference": "c89d5fa4c770c9e1ec0e472ccb7dd7353a199619",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0",
+                "socialiteproviders/manager": "~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Facebook\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oleksandr Prypkhan (Alex Wells)",
+                    "email": "autaut03@googlemail.com"
+                }
+            ],
+            "description": "Facebook (facebook.com) OAuth2 Provider for Laravel Socialite",
+            "time": "2019-01-11T19:47:04+00:00"
         },
         {
             "name": "socialiteproviders/google",
@@ -5548,21 +5649,21 @@
         },
         {
             "name": "facade/flare-client-php",
-            "version": "1.3.4",
+            "version": "1.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/flare-client-php.git",
-                "reference": "0eeb0de4fc1078433f0915010bd8f41e998adcb4"
+                "reference": "25907a113bfc212a38d458ae365bfb902b4e7fb8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/flare-client-php/zipball/0eeb0de4fc1078433f0915010bd8f41e998adcb4",
-                "reference": "0eeb0de4fc1078433f0915010bd8f41e998adcb4",
+                "url": "https://api.github.com/repos/facade/flare-client-php/zipball/25907a113bfc212a38d458ae365bfb902b4e7fb8",
+                "reference": "25907a113bfc212a38d458ae365bfb902b4e7fb8",
                 "shasum": ""
             },
             "require": {
                 "facade/ignition-contracts": "~1.0",
-                "illuminate/pipeline": "^5.5|^6.0|^7.0",
+                "illuminate/pipeline": "^5.5|^6.0|^7.0|^8.0",
                 "php": "^7.1",
                 "symfony/http-foundation": "^3.3|^4.1|^5.0",
                 "symfony/mime": "^3.4|^4.0|^5.1",
@@ -5600,7 +5701,7 @@
                 "flare",
                 "reporting"
             ],
-            "time": "2020-07-13T23:25:57+00:00"
+            "time": "2020-08-26T18:06:23+00:00"
         },
         {
             "name": "facade/ignition",
@@ -6666,16 +6767,16 @@
         },
         {
             "name": "scrivo/highlight.php",
-            "version": "v9.18.1.1",
+            "version": "v9.18.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scrivo/highlight.php.git",
-                "reference": "52fc21c99fd888e33aed4879e55a3646f8d40558"
+                "reference": "efb6e445494a9458aa59b0af5edfa4bdcc6809d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/52fc21c99fd888e33aed4879e55a3646f8d40558",
-                "reference": "52fc21c99fd888e33aed4879e55a3646f8d40558",
+                "url": "https://api.github.com/repos/scrivo/highlight.php/zipball/efb6e445494a9458aa59b0af5edfa4bdcc6809d9",
+                "reference": "efb6e445494a9458aa59b0af5edfa4bdcc6809d9",
                 "shasum": ""
             },
             "require": {
@@ -6731,7 +6832,7 @@
                 "highlight.php",
                 "syntax"
             ],
-            "time": "2020-03-02T05:59:21+00:00"
+            "time": "2020-08-27T03:24:44+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
