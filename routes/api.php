@@ -71,6 +71,7 @@ Route::middleware('auth:api')->group(function () {
     //Admin
     Route::post('/adminRegisterr', 'AdminController@adminRegister');
     Route::apiResource('/resiadmin', 'AdminController');
+    Route::get('/blockuser/{id}', 'AdminController@blockUser');
     // Route::post('/update', 'AdminController@update');
 });
 

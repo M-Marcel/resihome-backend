@@ -50,6 +50,45 @@ class AdminController extends Controller
 
     }
 
+    public function blockUser($id)
+    {
+        $admin = Admin::find(Auth::user()->id);
+        // $request->validate([
+        //     'id' => 'required|integer',
+        // ]);
+// dd($id);
+        if ($admin->is_admin == 1){
+
+            $user = Admin::findOrFail($id);
+             if($user->is_active == 0){
+                $user->is_active = 1;
+                $user->save();
+                return response([
+                    'user' => $user,
+                    'message' => 'User unbloked',
+                    ]);
+             }elseif($user->is_active == 1){
+                $user->is_active = 0;
+                $user->save();
+                return response([
+                    'user' => $user,
+                    'message' => 'User Bloked',
+                    ]);
+             }
+
+        }
+
+        else{
+
+            return response(['message' => 'Unauthorized access']);
+        }
+
+        // return response([
+        //     'user' => $user,
+        //     'message' => 'User Bloked',
+        //     ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
