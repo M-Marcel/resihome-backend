@@ -16,9 +16,15 @@ class PropertyImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-       return('testing');
+        $property = Property::findOrFail($id);
+        return response([
+
+            'Property images' => $property->property_images,
+            'message' => 'Images retrieved successfully'
+
+             ]);
     }
 
     /**
@@ -74,12 +80,12 @@ class PropertyImageController extends Controller
         // $image->save();
 
         // return response([ 'propertyImage' => PropertyResource::collection($property->property_images), 'message' => 'Retrieved successfully'], 200);
-        dd($property->property_images);
+        // dd($property->property_images);
 
         return response([
 
             'Property images' => $property->property_images,
-            'message' => 'Retrieved successfully'
+            'message' => 'Stored successfully'
 
              ]);
 
@@ -93,12 +99,10 @@ class PropertyImageController extends Controller
             'image' => 'sometimes|file|image|max:5000',
         ]);
 
-        //
 
         $property = Property::find($request->get('propertyId'));
         $image =  $property->property_images()
-                            ->where('id', $id);
-
+                            ->whereId($id);
 
         if($request->hasFile('image')){
             //get filename with extension
@@ -117,33 +121,24 @@ class PropertyImageController extends Controller
                 Storage::disk('s3')->delete($filenametostore);
             }
 
-           //Upload File to s3
-           Storage::disk('s3')->put($filenametostore, fopen($request->file('image'), 'r+'), 'public');
-       }
+            //Upload File to s3
+            Storage::disk('s3')->put($filenametostore, fopen($request->file('image'), 'r+'), 'public');
+        }
+        // return response($image->get()[0]['original']);
+        Storage::disk('s3')->delete($image->get()[0]['original']);
 
        if (request()->has('image')){
         $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . '.amazonaws.com/'. $filenametostore;
-            // $property->property_images()->create([
-            //     'original' => $filenametostore,
-            //     'imageUrl' => $imageUrl,
-            //     // 'thumbnail' => 'thumb'.time().$originalImage->getClientOriginalName(),
-            // ]);
-
-            $image->original = $filenametostore;
-            $image->imageUrl = $imageUrl;
-            $image->save();
+            $image->update([
+                "original" => $filenametostore,
+                "imageUrl" => $imageUrl
+            ]);
 
         }
-
-        // $image = Image::make(public_path('propertyImages/ '. $property->property_images))->fit(500, 500);
-        // $image->save();
-
-        // return response([ 'propertyImage' => PropertyResource::collection($property->property_images), 'message' => 'Retrieved successfully'], 200);
-
         return response([
 
-            'Property image' => $image,
-            'message' => 'Retrieved successfully'
+            'Property image' => Property_image::find($id),
+            'message' => 'updated successfully'
 
              ]);
     }
@@ -154,60 +149,11 @@ class PropertyImageController extends Controller
      * @param  \App\Property_image  $property_image
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show($id)
     {
-
-        $request->validate([
-            'propertyId' => 'integer',
-            'id' => 'integer',
-        ]);
-
-        $property = Property::find($request->get('propertyId'));
-
-       $image =  $property->property_images()
-                            ->where('id', $request->get('id'))
-                            ->get();
-        // $property = Property_image::where('id', $request->get('id'))
-        //                             ->where('propertyId', $request->get('propertyId'))
-        //                             ->get();
-
-    //     if($request->hasFile('image')){
-    //         //get filename with extension
-    //        $filenamewithextension = $request->file('image')->getClientOriginalName();
-
-    //        //get filename without extension
-    //        $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
-
-    //        //get file extension
-    //        $extension = $request->file('image')->getClientOriginalExtension();
-
-    //        //filename to store
-    //        $filenametostore = $filename.'_'.time().'.'.$extension;
-
-    //        if ($property->image == $filenametostore){
-    //             Storage::disk('s3')->delete($filenametostore);
-    //         }
-
-    //        //Upload File to s3
-    //        Storage::disk('s3')->put($filenametostore, fopen($request->file('image'), 'r+'), 'public');
-    //    }
-
-    //    if (request()->has('image')){
-    //     $imageUrl = 'https://'. env('AWS_BUCKET') .'.s3.'. env('AWS_DEFAULT_REGION') . '.amazonaws.com/'. $filenametostore;
-    //         $property->property_images()->create([
-    //             'original' => $filenametostore,
-    //             'imageUrl' => $imageUrl,
-    //             // 'thumbnail' => 'thumb'.time().$originalImage->getClientOriginalName(),
-    //         ]);
-    //     }
-
-        // $image = Image::make(public_path('propertyImages/ '. $property->property_images))->fit(500, 500);
-        // $image->save();
-
-        // return response([ 'propertyImage' => PropertyResource::collection($property->property_images), 'message' => 'Retrieved successfully'], 200);
         return response([
 
-            'Property image' => $image,
+            'Property image' => Property_image::findOrFail($id),
             'message' => 'Retrieved successfully'
 
              ]);
@@ -226,5 +172,11 @@ class PropertyImageController extends Controller
     {
         $image = Property_image::findOrFail($id);
         $image->delete();
+
+        return response([
+
+            'message' => 'Deleted successfully'
+
+             ]);
     }
 }

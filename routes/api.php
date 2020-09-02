@@ -42,7 +42,11 @@ Route::middleware('auth:api')->group(function () {
 
     //Property Image
     // Route::apiResource('/image', 'Property\PropertyImageController');
+    Route::get('/showallimages/{propertyId}', 'Property\PropertyImageController@index');
     Route::post('/propimage', 'Property\PropertyImageController@store');
+    Route::post('/propimage/{imageId}', 'Property\PropertyImageController@update');
+    Route::get('/propimageshow/{imageId}', 'Property\PropertyImageController@show');
+    Route::delete('/propimage/{imageId}', 'Property\PropertyImageController@destroy');
 
     // Properties
     Route::apiResource('/propertyown', 'Property\ByOwnerPropertyController');
