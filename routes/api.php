@@ -46,31 +46,31 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/propimage/{imageId}', 'Property\PropertyImageController@update');
     Route::get('/propimageshow/{imageId}', 'Property\PropertyImageController@show');
     Route::delete('/propimage/{imageId}', 'Property\PropertyImageController@destroy');
-    
+
     // Properties
     Route::apiResource('/propertyown', 'Property\ByOwnerPropertyController');
     Route::apiResource('/propertysale', 'Property\ForSalePropertyController');
     Route::apiResource('/propertynew', 'Property\NewHomePropertyController');
     Route::apiResource('/propertylong', 'Property\LongLeasePropertyController');
     Route::apiResource('/propertyshort', 'Property\ShortLeasePropertyController');
-    
+
     //Mansion
     Route::apiResource('/mansion', 'Property\MansionController');
-    
+
     //Saved Property
     Route::get('/savedProperties', 'Property\PropertyUserController@index');
     Route::get('/save/{id}', 'Property\PropertyUserController@save');
     Route::get('/remove/{id}', 'Property\PropertyUserController@removeSaved');
     Route::get('/userproperty', 'PropertyController@index');
-    
+
     // Contact us
     Route::get('/getcontactus', 'ContactusController@index');
     Route::get('/getcontactus/{contactId}', 'ContactusController@show');
-    
+
     // Contact Agent
     Route::get('/getcontactagent', 'ContactAgentController@index');
     Route::get('/getcontactagent/{contactId}', 'ContactAgentController@show');
-    
+
     //Admin
     Route::post('/adminRegisterr', 'AdminController@adminRegister');
     Route::apiResource('/resiadmin', 'AdminController');
@@ -115,6 +115,7 @@ Route::post('/buildersearch', 'BuilderController@builderSearch');
 
 //Sold Property
 Route::get('/sold', 'PropertyController@sold');
+Route::get('/leased', 'PropertyController@leased');
 Route::get('/isSold/{id}', 'PropertyController@isSold');
 
 // Contact Us

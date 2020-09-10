@@ -6,6 +6,7 @@ use App\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\PropertyResource;
+use App\Http\Resources\Property2Resource;
 use Illuminate\Support\Facades\DB;
 
 class PropertyController extends Controller
@@ -31,6 +32,32 @@ class PropertyController extends Controller
     {
         $properties = Property::where('status', 0)->get();
         return response([ 'properties' => PropertyResource::collection($properties), 'message' => 'Retrieved successfully'], 206);
+    }
+
+    public function leased()
+    {
+        // $properties = Property::where('status', 0)
+        $properties = Property::where('category', 'Long term lease')
+        // ->orWhere('category', 'Short term lease')
+        ->whereStatus(0)
+        ->get();
+
+        $properties2 = Property::where('category', 'Short term lease')
+        // ->orWhere('category', 'Short term lease')
+        ->whereStatus(0)
+        ->get();
+
+        return response([
+
+            'Long Lease property' => $properties,
+            'Short Lease property' => $properties2,
+            'message' => 'Retrieved successfully'
+
+             ]);
+
+        // $properties = Property::where('category', 'Long term lease')
+
+        // return response([ 'properties' => Property2Resource::collection($properties, $properties2), 'message' => 'Retrieved successfully'], 206);
     }
 
     public function isSold($id)
