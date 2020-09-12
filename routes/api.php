@@ -124,3 +124,11 @@ Route::post('/contactus', 'ContactusController@store');
 // Contact Agent
 Route::post('/contactagent', 'ContactAgentController@store');
 
+//Expert Request
+Route::post('/expertRequest', 'ExpertRequestController@expertRequest');
+
+//Sample Policy
+Route::get('/policy', function () {
+    return view('policy');
+});
+
