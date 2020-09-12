@@ -151,18 +151,16 @@ class AuthController extends Controller
 
     public function redirectToProvider($provider)
     {
-        // $url = Socialite::driver($provider)->stateless()->redirect()->getTargetUrl();
-        return Socialite::driver($provider)->stateless()->redirect();
+        $url = Socialite::driver($provider)->stateless()->redirect()->getTargetUrl();
+        // return Socialite::driver($provider)->stateless()->redirect();
 
-        // return response()->json([
-        //     "url" => $url
-        // ]);
+        return response()->json([
+            "url" => $url
+        ]);
     }
-
 
     public function handleProviderCallback($provider)
     {
-
         // $user = Socialite::driver('google')->user();
         $user = Socialite::driver($provider)->stateless()->user();
 
@@ -209,8 +207,5 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $passportToken
         ]);
-
-        // dd($user, $passportToken)->accessToken;
-
     }
 }
