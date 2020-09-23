@@ -13,15 +13,15 @@ class ExpertRequestUser2 extends Migration
      */
     public function up()
     {
-        Schema::create('expert_request_user', function (Blueprint $table) {
-            $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('location')->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('expert_request_user', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('first_name');
+        //     $table->string('last_name');
+        //     $table->string('email');
+        //     $table->string('phone');
+        //     $table->string('location')->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -31,6 +31,6 @@ class ExpertRequestUser2 extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expert_request_user');
+        // Schema::dropIfExists('expert_request_user');
     }
 }

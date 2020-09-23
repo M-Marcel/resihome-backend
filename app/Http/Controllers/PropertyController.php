@@ -74,6 +74,19 @@ class PropertyController extends Controller
              ]);
     }
 
+    public function fetchAddress()
+    {
+        $address = DB::table('property')->pluck('address');
+
+
+        return response([
+
+            'address' => $address,
+            'message' => 'Property address retrived successfully'
+
+             ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

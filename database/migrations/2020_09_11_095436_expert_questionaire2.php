@@ -13,14 +13,15 @@ class ExpertQuestionaire2 extends Migration
      */
     public function up()
     {
-        Schema::create('expert_questionaire', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('expert_request_user_id');
-            $table->string('expert_request_type');
-            $table->string('question');
-            $table->string('answer');
-            $table->timestamps();
-        });
+        // Schema::create('expert_questionaire', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->foreignId('expert_request_user_id');
+        //     $table->string('expert_request_type');
+        //     $table->string('question');
+        //     $table->string('answer');
+        //     $table->timestamps();
+        // });
+        // Schema::dropIfExists('expert_questionaire');
     }
 
     /**
@@ -30,6 +31,6 @@ class ExpertQuestionaire2 extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expert_questionaire');
+        // Schema::dropIfExists('expert_questionaire');
     }
 }
