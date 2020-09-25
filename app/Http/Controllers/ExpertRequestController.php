@@ -30,7 +30,7 @@ class ExpertRequestController extends Controller
             'location' => 'required|string',
         ]);
 
-        $user = new Qustionaire([
+        $question = new Qustionaire([
 
             'first_name' =>  $request->get('firstName'),
             'last_name' => $request->get('lastName'),
@@ -42,12 +42,12 @@ class ExpertRequestController extends Controller
 
                 ]);
 
-            $user->save();
+            $question->save();
 
             return response([
 
-               'user' => $user,
-               'message' => 'User Created Successfully'
+               'Request' => $question,
+               'message' => 'Request Submitted Successfully'
 
                 ]);
 

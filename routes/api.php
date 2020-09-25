@@ -123,7 +123,7 @@ Route::get('/showMansion/{mansionid}', 'Property\MansionController@show');
 //Search
 Route::post('/search', 'PropertyController@search');
 Route::post('/homesearch', 'PropertyController@mainSearch');
-Route::post('/propertyAddress', 'PropertyController@fetchAddress');
+Route::get('/propertyAddress', 'PropertyController@fetchAddress');
 Route::post('/agentsearch', 'AgentController@agentSearch');
 Route::post('/renosearch', 'RenoController@renoSearch');
 Route::post('/buildersearch', 'BuilderController@builderSearch');
