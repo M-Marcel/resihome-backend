@@ -175,7 +175,7 @@ class AuthController extends Controller
             $appUser = User::create([
                 'email' => $user->email,
                 'password' => Str::random(8),
-                'user_role' => 2,
+                'user_role' => 1,
                 // 'user_role' => $userRole,
                 'firstname' => $user->name,
                 // 'lastname' => $user->name

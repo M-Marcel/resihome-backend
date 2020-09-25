@@ -16,3 +16,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/test', function () {
+
+    $array = [
+        "{
+            'name': 'John Doe',
+            'age': 29,
+            'city': 'Aba'
+
+         }"
+    ];
+
+    $main = json_decode($array[0]);
+    return $main;
+
+});

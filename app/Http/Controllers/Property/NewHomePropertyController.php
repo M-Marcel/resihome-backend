@@ -73,6 +73,7 @@ class NewHomePropertyController extends Controller
             'city' => 'required|boolean',
             'water' => 'required|boolean',
             'park' => 'required|boolean',
+            'mountain' => 'required|boolean',
             // 'concierge' => 'required',
             'image' => 'file|image|max:5000',
 
@@ -137,6 +138,7 @@ class NewHomePropertyController extends Controller
             'city' => $request->get('city'),
             'water' => $request->get('water'),
             'park' => $request->get('park'),
+            'mountain' => $request->get('mountain'),
             'concierge' => $request->get('concierge'),
             'imageUrl' => $imageUrl,
             'image' => $filenametostore,
@@ -214,6 +216,7 @@ class NewHomePropertyController extends Controller
             'gym' => 'required|boolean',
             'city' => 'required|boolean',
             'water' => 'required|boolean',
+            'mountain' => 'required|boolean',
             'park' => 'required|boolean',
             // 'cordinate' => 'required',
             'image' => 'file|image|max:5000',
@@ -284,6 +287,7 @@ class NewHomePropertyController extends Controller
         $property->gym = $request->get('gym');
         $property->city = $request->get('city');
         $property->water = $request->get('water');
+        $property->mountain = $request->get('mountain');
         $property->park = $request->get('park');
         $property->concierge = $request->get('concierge');
 

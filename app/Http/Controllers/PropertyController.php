@@ -150,6 +150,13 @@ class PropertyController extends Controller
             if (!empty($request->transports)) {
                 $property = $property->where('transport', $request->transports);
             }
+            // if (!empty($request->propertyType)) {
+            //     $prop = $request->propertyType;
+            //     foreach ($prop as $propType) {
+            //         $property = $property->where('propertyType', $propType);
+            //     }
+
+            // }
             // if (!empty($request->ownerId)) {
             //     $property = $property->where('owner_id', $request->ownerId);
             // }
@@ -212,6 +219,10 @@ class PropertyController extends Controller
             if (!empty($request->minBathrooms)) {
                 $property = $property->where('bathroom', '>=', '%'.$request->minBathrooms.'%');
             }
+
+            // if (!empty($request->minBathrooms)) {
+            //     $property = $property->where('bathroom', '>=', '%'.$request->minBathrooms.'%');
+            // }
 
             if (!empty($request->keywords)) {
                 $property = $property->where('description', 'like', '%'.$request->keywords.'%');

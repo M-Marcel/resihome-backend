@@ -73,6 +73,7 @@ class MansionController extends Controller
             'city' => 'required|boolean',
             'water' => 'required|boolean',
             'park' => 'required|boolean',
+            'mountain' => 'required|boolean',
             'image' => 'file|image|max:5000',
 
         ]);
@@ -136,6 +137,7 @@ class MansionController extends Controller
             'city' => $request->get('city'),
             'water' => $request->get('water'),
             'park' => $request->get('park'),
+            'mountain' => $request->get('mountain'),
             'concierge' => $request->get('concierge'),
             'imageUrl' => $imageUrl,
             'image' => $filenametostore,
@@ -219,6 +221,7 @@ class MansionController extends Controller
             'city' => 'required|boolean',
             'water' => 'required|boolean',
             'park' => 'required|boolean',
+            'mountain' => 'required|boolean',
             'image' => 'file|image|max:5000',
 
         ]);
@@ -284,6 +287,7 @@ class MansionController extends Controller
         $mansion->gym = $request->get('gym');
         $mansion->city = $request->get('city');
         $mansion->water = $request->get('water');
+        $mansion->mountain = $request->get('mountain');
         $mansion->park = $request->get('park');
         $mansion->concierge = $request->get('concierge');
 
