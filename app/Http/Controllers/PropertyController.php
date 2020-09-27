@@ -19,6 +19,7 @@ class PropertyController extends Controller
     public function index()
     {
         $properties = Property::where('owner_id', Auth::user()->id)->get();
+
         return response([ 'properties' => PropertyResource::collection($properties), 'message' => 'User Properties Retrieved successfully'], 200);
     }
 
@@ -76,7 +77,8 @@ class PropertyController extends Controller
 
     public function fetchAddress()
     {
-        $address = DB::table('property')->pluck('address');
+        // $address = DB::table('property')->pluck('address');
+        $address = DB::table('property')->pluck('location');
 
 
         return response([
@@ -275,13 +277,13 @@ class PropertyController extends Controller
                 $property = $property->where('address', 'like', '%'.$request->address.'%');
             }
 
-            if (!empty($request->propertyType)) {
-                $property = $property->where('type', $request->propertyType);
-            }
+            // if (!empty($request->propertyType)) {
+            //     $property = $property->where('type', $request->propertyType);
+            // }
 
-            if (!empty($request->availableDate)) {
-                $property = $property->where('available_date', $request->availableDate);
-            }
+            // if (!empty($request->availableDate)) {
+            //     $property = $property->where('available_date', $request->availableDate);
+            // }
 
             if (!empty($request->minPrize)) {
                 $property = $property->where('main_prize', '>=', '%'.$request->minPrize.'%');
@@ -292,17 +294,17 @@ class PropertyController extends Controller
             }
 
 
-            if (!empty($request->minBathrooms)) {
-                $property = $property->where('bathroom', '>=', '%'.$request->minBathrooms.'%');
+            if (!empty($request->minBedrooms)) {
+                $property = $property->where('bedroom', '>=', '%'.$request->minBathrooms.'%');
             }
 
-            if (!empty($request->maxBathrooms)) {
-                $property = $property->where('bathroom', '<=', '%'.$request->maxBathrooms.'%');
+            if (!empty($request->maxBedrooms)) {
+                $property = $property->where('bedroom', '<=', '%'.$request->maxBathrooms.'%');
             }
 
-            if (!empty($request->keywords)) {
-                $property = $property->where('description', 'like', '%'.$request->keywords.'%');
-            }
+            // if (!empty($request->keywords)) {
+            //     $property = $property->where('description', 'like', '%'.$request->keywords.'%');
+            // }
 
         $properties = $property->get();
         return response($properties);

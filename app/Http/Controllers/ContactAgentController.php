@@ -24,6 +24,18 @@ class ContactAgentController extends Controller
              ]);
     }
 
+    // public function getAgentMessage()
+    // {
+    //     // $contact = ContactAgent::all();
+    //     $contact = ContactAgent::where('agent_id', auth()->user()->id)->get();
+    //     return response([
+
+    //         'Contactus' => $contact,
+    //         'message' => 'All Request Loaded Successfully'
+
+    //          ]);
+    // }
+
     /**
      * Store a newly created resource in storage.
      *
