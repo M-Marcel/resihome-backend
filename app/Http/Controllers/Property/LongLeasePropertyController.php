@@ -38,6 +38,9 @@ class LongLeasePropertyController extends Controller
             'category' => 'required',
             'address' => 'required',
             'location' => 'required',
+            'mCity' => 'required',
+            'state' => 'required',
+            'country' => 'required',
             'description' => 'required',
             'type' => 'required',
             'subType' => 'required',
@@ -103,6 +106,9 @@ class LongLeasePropertyController extends Controller
             'category' => $request->get('category'),
             'address' => $request->get('address'),
             'location' => $request->get('location'),
+            'mCity' => $request->get('mCity'),
+            'state' => $request->get('state'),
+            'country' => $request->get('country'),
             'description' => $request->get('description'),
             'type' => $request->get('type'),
             'sub_type' => $request->get('subType'),
@@ -182,6 +188,9 @@ class LongLeasePropertyController extends Controller
             'category' => 'required',
             'address' => 'required',
             'location' => 'required',
+            'mCity' => 'required',
+            'state' => 'required',
+            'country' => 'required',
             'description' => 'required',
             'type' => 'required',
             'subType' => 'required',
@@ -253,6 +262,9 @@ class LongLeasePropertyController extends Controller
         $property->category = $request->get('category');
         $property->address = $request->get('address');
         $property->location = $request->get('location');
+         $property->mCity = $request->get('mCity');
+        $property->state = $request->get('state');
+        $property->country = $request->get('country');
         $property->description = $request->get('description');
         $property->type = $request->get('type');
         $property->sub_type = $request->get('subType');

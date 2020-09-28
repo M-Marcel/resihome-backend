@@ -84,6 +84,8 @@ Route::middleware('auth:api')->group(function () {
     // Contact Agent
     Route::get('/getcontactagent', 'ContactAgentController@index');
     Route::get('/getcontactagent/{contactId}', 'ContactAgentController@show');
+    Route::get('/getAgentMesage/{messageId}', 'ContactAgentController@show');
+    Route::delete('/deleteAgentMessage/{messageId}', 'ContactAgentController@destroy');
 
     //Admin
     Route::post('/adminRegisterr', 'AdminController@adminRegister');

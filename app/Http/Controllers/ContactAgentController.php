@@ -83,6 +83,11 @@ class ContactAgentController extends Controller
     public function show($id)
     {
         $contact = ContactAgent::where('id', $id)->get();
+
+
+        $contact->isRead = 1;
+        $contact->save();
+
         return response([ 'property' => $contact, 'message' => 'Request Retrieved successfully'], 200);
     }
 
@@ -104,8 +109,13 @@ class ContactAgentController extends Controller
      * @param  \App\ContactAgent  $contactAgent
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ContactAgent $contactAgent)
+    public function destroy($id)
     {
-        //
+        $contactAgent = ContactAgent::findOrFail($id);
+
+        $contactAgent->delete();
+        return response([
+            'message' => 'Request Deleted Successfully'
+        ]);
     }
 }

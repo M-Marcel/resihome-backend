@@ -39,6 +39,9 @@ class MansionController extends Controller
             'title' => 'required',
             'address' => 'required',
             'location' => 'required',
+             'mCity' => 'required',
+            'state' => 'required',
+            'country' => 'required',
             'description' => 'required',
             'type' => 'required',
             'subType' => 'required',
@@ -103,6 +106,9 @@ class MansionController extends Controller
             'title' => $request->get('title'),
             'address' => $request->get('address'),
             'location' => $request->get('location'),
+            'mCity' => $request->get('mCity'),
+            'state' => $request->get('state'),
+            'country' => $request->get('country'),
             'description' => $request->get('description'),
             'type' => $request->get('type'),
             'sub_type' => $request->get('subType'),
@@ -187,6 +193,9 @@ class MansionController extends Controller
             'title' => 'required',
             'address' => 'required',
             'location' => 'required',
+            'mCity' => 'required',
+            'state' => 'required',
+            'country' => 'required',
             'description' => 'required',
             'type' => 'required',
             'subType' => 'required',
@@ -254,6 +263,9 @@ class MansionController extends Controller
         $mansion->title = $request->get('title');
         $mansion->address = $request->get('address');
         $mansion->location = $request->get('location');
+        $mansion->mCity = $request->get('mCity');
+        $mansion->state = $request->get('state');
+        $mansion->country = $request->get('country');
         $mansion->description = $request->get('description');
         $mansion->type = $request->get('type');
         $mansion->sub_type = $request->get('subType');
