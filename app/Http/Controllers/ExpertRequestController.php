@@ -15,7 +15,13 @@ class ExpertRequestController extends Controller
      */
     public function index()
     {
-        //
+        $question = Qustionaire::all();
+        return response([
+
+            'Question' => $question,
+            'message' => 'All Question Request Loaded Successfully'
+
+             ]);
     }
 
     public function expertRequest(Request $request)
@@ -26,6 +32,7 @@ class ExpertRequestController extends Controller
             'lastName' => 'required|string',
             'email' => 'required|string|email',
             'phone' => 'required|string',
+            'suburbOrPostal' => 'required|string',
             'requestType' => 'required|string',
             'location' => 'required|string',
         ]);
@@ -37,8 +44,10 @@ class ExpertRequestController extends Controller
             'email' =>  $request->get('email'),
             'location' =>  $request->get('location'),
             'phone' => $request->get('phone'),
+            'suburbOrPostal' => $request->get('suburbOrPostal'),
             'requestType' => $request->get('requestType'),
             'question' => $request->get('questionsAndAnswer'),
+
 
                 ]);
 
@@ -119,9 +128,11 @@ class ExpertRequestController extends Controller
      * @param  \App\ExpertRequestUser  $expertRequestUser
      * @return \Illuminate\Http\Response
      */
-    public function show(ExpertRequestUser $expertRequestUser)
+    public function show($id)
     {
-        //
+        $question = Qustionaire::find($id);
+
+        return response($question);
     }
 
     /**

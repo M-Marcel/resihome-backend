@@ -143,6 +143,8 @@ Route::post('/contactagent', 'ContactAgentController@store');
 
 //Expert Request
 Route::post('/expertRequest', 'ExpertRequestController@expertRequest');
+Route::get('/expertRequest/{id}', 'ExpertRequestController@show');
+Route::get('/expertRequest/all', 'ExpertRequestController@index');
 
 //Sample Policy
 Route::get('/policy', function () {
