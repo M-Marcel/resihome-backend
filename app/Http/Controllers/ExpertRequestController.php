@@ -142,7 +142,7 @@ class ExpertRequestController extends Controller
      * @param  \App\ExpertRequestUser  $expertRequestUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ExpertRequestUser $expertRequestUser)
+    public function update(Request $request)
     {
         //
     }
@@ -153,7 +153,7 @@ class ExpertRequestController extends Controller
      * @param  \App\ExpertRequestUser  $expertRequestUser
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ExpertRequestUser $expertRequestUser)
+    public function destroy()
     {
         //
     }
