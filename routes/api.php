@@ -39,7 +39,7 @@ Route::post('/login', 'AuthController@login');
 Route::post('/adminLoginn', 'AuthController@adminLogin');
 Route::post('/register', 'AuthController@register');
 Route::post('/adminRegister', 'AuthController@adminRegister');
-Route::post('/addAdmin', 'AuthController@addAdmin');
+// Route::post('/addAdmin', 'AuthController@addAdmin');
 
 
 
@@ -95,6 +95,8 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('/resiadmin', 'AdminController');
     Route::get('/blockuser/{id}', 'AdminController@blockUser');
     // Route::post('/update', 'AdminController@update');
+    // Add Admin
+    Route::post('/addAdmin', 'AuthController@addAdmin');
 });
 
 Route::get('/showallimages/{propertyId}', 'Property\PropertyImageController@index');
