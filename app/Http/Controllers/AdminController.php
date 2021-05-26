@@ -65,14 +65,14 @@ class AdminController extends Controller
                 $user->save();
                 return response([
                     'user' => $user,
-                    'message' => 'User unbloked',
+                    'message' => 'Admin unbloked',
                     ]);
              }elseif($user->is_active == 1){
                 $user->is_active = 0;
                 $user->save();
                 return response([
                     'user' => $user,
-                    'message' => 'User Bloked',
+                    'message' => 'Admin Bloked',
                     ]);
              }
 
