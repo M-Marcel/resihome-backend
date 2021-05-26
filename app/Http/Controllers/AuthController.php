@@ -162,9 +162,9 @@ class AuthController extends Controller
             'lastname' => $request->lastName,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'user_role' => '10',
+            'user_role' => '11',
             'is_admin' => 1,
-            'is_superadmin' => 1,
+            'is_superadmin' => 0,
         ]);
     }
     // public function adminRegister(Request $request)
