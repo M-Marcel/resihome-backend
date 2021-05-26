@@ -122,23 +122,55 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        $user =  User::create([
+        // $user =  User::create([
+        //     'email' => $request->email,
+        //     'password' => Hash::make($request->password),
+        //     'user_role' => '10',
+        //     'is_admin' => 1,
+        //     'is_superadmin' => 1,
+
+        // ]);
+
+        // $user->is_admin = 1;
+        // $user->is_superadmin = 1;
+
+        // $user->save();
+
+
+        // return response($user);
+
+        return User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'user_role' => '10',
             'is_admin' => 1,
             'is_superadmin' => 1,
-
         ]);
-
-        $user->is_admin = 1;
-        $user->is_superadmin = 1;
-
-        $user->save();
-
-
-        return response($user);
     }
+    // public function adminRegister(Request $request)
+    // {
+    //     $request->validate([
+    //         'email' => 'required|string|email|max:255|unique:users',
+    //         'password' => 'required|string|min:6',
+    //     ]);
+
+    //     $user =  User::create([
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //         'user_role' => '10',
+    //         'is_admin' => 1,
+    //         'is_superadmin' => 1,
+
+    //     ]);
+
+    //     $user->is_admin = 1;
+    //     $user->is_superadmin = 1;
+
+    //     $user->save();
+
+
+    //     return response($user);
+    // }
 
     public function logout()
     {

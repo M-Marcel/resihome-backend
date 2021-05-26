@@ -36,39 +36,39 @@ return [
     ],
 
     'passport' => [
-        'login_endpoint' => getenv('PASSPORT_LOGIN_ENDPOINT'),
-        'client_id' => getenv('CLIENT_ID'),
-        'client_secret' => getenv('CLIENT_SECRET'),
-        // 'login_endpoint' => env('PASSPORT_LOGIN_ENDPOINT'),
-        // 'client_id' => env('PASSPORT_CLIENT_ID'),
-        // 'client_secret' => env('PASSPORT_CLIENT_SECRET'),
+        // 'login_endpoint' => getenv('PASSPORT_LOGIN_ENDPOINT'),
+        // 'client_id' => getenv('CLIENT_ID'),
+        // 'client_secret' => getenv('CLIENT_SECRET'),
+        'login_endpoint' => env('PASSPORT_LOGIN_ENDPOINT'),
+        'client_id' => env('PASSPORT_CLIENT_ID'),
+        'client_secret' => env('PASSPORT_CLIENT_SECRET'),
     ],
 
     'google' => [
-        // 'client_id' => env('GOOGLE_CLIENT_ID'),
-        // 'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        // 'redirect' => env('GOOGLE_REDIRECT_URI'),
-        'client_id' => getenv('GOOGLE_CLIENT_ID'),
-        'client_secret' => getenv('GOOGLE_CLIENT_SECRET'),
-        'redirect' => getenv('GOOGLE_REDIRECT_URI')
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI'),
+        // 'client_id' => getenv('GOOGLE_CLIENT_ID'),
+        // 'client_secret' => getenv('GOOGLE_CLIENT_SECRET'),
+        // 'redirect' => getenv('GOOGLE_REDIRECT_URI')
     ],
 
     'facebook' => [
-        // 'client_id' => env('FACEBOOK_CLIENT_ID'),
-        // 'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        // 'redirect' => env('FACEBOOK_REDIRECT_URI')
-        'client_id' => getenv('FACEBOOK_CLIENT_ID'),
-        'client_secret' => getenv('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => getenv('FACEBOOK_REDIRECT_URI')
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => env('FACEBOOK_REDIRECT_URI')
+        // 'client_id' => getenv('FACEBOOK_CLIENT_ID'),
+        // 'client_secret' => getenv('FACEBOOK_CLIENT_SECRET'),
+        // 'redirect' => getenv('FACEBOOK_REDIRECT_URI')
       ],
 
       'apple' => [
-        // 'client_id' => env('APPLE_CLIENT_ID'),
-        // 'client_secret' => env('APPLE_CLIENT_SECRET'),
-        // 'redirect' => env('APPLE_REDIRECT_URI')
-        'client_id' => getenv('APPLE_CLIENT_ID'),
-        'client_secret' => getenv('APPLE_CLIENT_SECRET'),
-        'redirect' => getenv('APPLE_REDIRECT_URI')
+        'client_id' => env('APPLE_CLIENT_ID'),
+        'client_secret' => env('APPLE_CLIENT_SECRET'),
+        'redirect' => env('APPLE_REDIRECT_URI')
+        // 'client_id' => getenv('APPLE_CLIENT_ID'),
+        // 'client_secret' => getenv('APPLE_CLIENT_SECRET'),
+        // 'redirect' => getenv('APPLE_REDIRECT_URI')
       ],
 
 ];
