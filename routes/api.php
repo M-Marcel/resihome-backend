@@ -39,6 +39,7 @@ Route::post('/login', 'AuthController@login');
 Route::post('/adminLoginn', 'AuthController@adminLogin');
 Route::post('/register', 'AuthController@register');
 Route::post('/adminRegister', 'AuthController@adminRegister');
+Route::post('/addAdmin', 'AuthController@addAdmin');
 
 
 

@@ -147,6 +147,26 @@ class AuthController extends Controller
             'is_superadmin' => 1,
         ]);
     }
+
+    public function addAdmin(Request $request)
+    {
+        $request->validate([
+            'firstName' => 'string',
+            'lastName' => 'string',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+        ]);
+
+        return User::create([
+            'firstname' => $request->firstName,
+            'lastname' => $request->lastName,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'user_role' => '10',
+            'is_admin' => 1,
+            'is_superadmin' => 1,
+        ]);
+    }
     // public function adminRegister(Request $request)
     // {
     //     $request->validate([
