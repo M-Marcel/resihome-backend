@@ -150,6 +150,10 @@ class AuthController extends Controller
 
     public function addAdmin(Request $request)
     {
+        $admin = user::find(Auth::user()->id);
+
+        if ($admin->is_superadmin == 1){
+
         $request->validate([
             'firstName' => 'string',
             'lastName' => 'string',
@@ -166,6 +170,13 @@ class AuthController extends Controller
             'is_admin' => 1,
             'is_superadmin' => 0,
         ]);
+    }
+
+    else{
+
+        return response(['message' => 'Unauthorized access']);
+    }
+
     }
     // public function adminRegister(Request $request)
     // {
