@@ -57,7 +57,7 @@ class AdminController extends Controller
         //     'id' => 'required|integer',
         // ]);
 // dd($id);
-        if ($admin->is_superadmin == 1){
+        if ($admin->is_superadmin == 0){
 
             $user = Admin::findOrFail($id);
              if($user->is_active == 0){
