@@ -145,7 +145,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'user_role' => '10',
             'is_admin' => 1,
-            'is_superadmin' => 0,
+            'is_superadmin' => 1,
         ]);
     }
 
@@ -175,7 +175,7 @@ class AuthController extends Controller
 
     else{
 
-        return response(['message' => 'Unauthorized access only the Super Admin has can add an Admin']);
+        return response(['message' => 'Unauthorized access only the Super Admin can add an Admin']);
     }
 
     }
