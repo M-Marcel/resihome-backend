@@ -91,7 +91,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/deleteAgentMessage/{messageId}', 'ContactAgentController@destroy');
 
     //Admin
-    Route::post('/adminRegisterr', 'AdminController@adminRegister');
+    Route::post('/adminRegisterr', 'AuthController@adminRegister');
     Route::apiResource('/resiadmin', 'AdminController');
     Route::get('/blockuser/{id}', 'AdminController@blockUser');
     // Route::post('/update', 'AdminController@update');
