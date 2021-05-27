@@ -153,7 +153,7 @@ class AuthController extends Controller
     {
         $admin = user::find(Auth::user()->id);
 
-        if ($admin->is_superadmin == 1){
+        if ($admin->is_superadmin == 0){
 
         $request->validate([
             'firstName' => 'string',
@@ -171,9 +171,7 @@ class AuthController extends Controller
             'is_admin' => 1,
             'is_superadmin' => 0,
         ]);
-    }
-
-    else{
+    }else{
 
         return response(['message' => 'Unauthorized access only the Super Admin can add an Admin']);
     }
