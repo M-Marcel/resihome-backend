@@ -175,7 +175,7 @@ class AuthController extends Controller
 
     else{
 
-        return response(['message' => 'Unauthorized access']);
+        return response(['message' => 'Unauthorized access only the Super Admin has can add an Admin']);
     }
 
     }
