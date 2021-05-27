@@ -135,7 +135,8 @@ class AuthController extends Controller
         // $user->is_superadmin = 1;
 
         // $user->save();
-
+        // jiangSuperAdmin@test.com
+        // jiangAdmin@test.com
 
         // return response($user);
 
@@ -144,7 +145,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'user_role' => '10',
             'is_admin' => 1,
-            'is_superadmin' => 1,
+            'is_superadmin' => 0,
         ]);
     }
 

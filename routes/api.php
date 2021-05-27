@@ -38,7 +38,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/login', 'AuthController@login');
 Route::post('/adminLoginn', 'AuthController@adminLogin');
 Route::post('/register', 'AuthController@register');
-// Route::post('/adminRegister', 'AuthController@adminRegister');
+Route::post('/adminRegisterr', 'AuthController@adminRegister');
 // Route::post('/addAdmin', 'AuthController@addAdmin');
 
 
@@ -91,7 +91,6 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/deleteAgentMessage/{messageId}', 'ContactAgentController@destroy');
 
     //Admin
-    Route::post('/adminRegisterr', 'AuthController@adminRegister');
     Route::apiResource('/resiadmin', 'AdminController');
     Route::get('/blockuser/{id}', 'AdminController@blockUser');
     // Route::post('/update', 'AdminController@update');
