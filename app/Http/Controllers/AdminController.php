@@ -21,34 +21,34 @@ class AdminController extends Controller
     }
 
 
-    public function adminRegister(Request $request)
-    {
-        $admin = Admin::find(Auth::user()->id);
-        $request->validate([
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
+    // public function adminRegister(Request $request)
+    // {
+    //     $admin = Admin::find(Auth::user()->id);
+    //     $request->validate([
+    //         'email' => 'required|string|email|max:255|unique:users',
+    //         'password' => 'required|string|min:6',
+    //     ]);
 
-        if ($admin->is_superadmin == 1){
+    //     if ($admin->is_superadmin == 1){
 
-            $admin =  Admin::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'user_role' => '10',
-            'is_admin' => 1,
+    //         $admin =  Admin::create([
+    //         'email' => $request->email,
+    //         'password' => Hash::make($request->password),
+    //         'user_role' => '10',
+    //         'is_admin' => 1,
 
-        ]);
+    //     ]);
 
-        $admin->is_admin = 1;
-        $admin->save();
-        return response($admin);
+    //     $admin->is_admin = 1;
+    //     $admin->save();
+    //     return response($admin);
 
-        }else{
+    //     }else{
 
-            return response(['message' => 'Unauthorized access']);
-        }
+    //         return response(['message' => 'Unauthorized access']);
+    //     }
 
-    }
+    // }
 
     public function blockUser($id)
     {
@@ -57,7 +57,7 @@ class AdminController extends Controller
         //     'id' => 'required|integer',
         // ]);
 // dd($id);
-        if ($admin->is_superadmin == 0){
+        if ($admin->is_superadmin == 1){
 
             $user = Admin::findOrFail($id);
              if($user->is_active == 0){

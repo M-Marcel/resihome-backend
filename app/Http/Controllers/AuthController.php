@@ -120,6 +120,8 @@ class AuthController extends Controller
         $request->validate([
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
+            'isAdmin' => 'required|integer',
+            'isSuperAdmin' => 'required|integer'
         ]);
 
         // $user =  User::create([
@@ -144,8 +146,10 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'user_role' => '10',
-            'is_admin' => 1,
-            'is_superadmin' => 1,
+            // 'is_admin' => 1,
+            // 'is_superadmin' => 0
+            'is_admin' => $request->isAdmin, //Constantly = 1
+            'is_superadmin' => $request->isSuperAdmin, //Constantly = 1
         ]);
     }
 
@@ -153,13 +157,15 @@ class AuthController extends Controller
     {
         $admin = user::find(Auth::user()->id);
 
-        if ($admin->is_superadmin == 0){
+        if ($admin->is_superadmin == 1){
 
         $request->validate([
             'firstName' => 'string',
             'lastName' => 'string',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
+            'isAdmin' => 'required|integer',
+            'isSuperAdmin' => 'required|integer'
         ]);
 
         return User::create([
@@ -168,11 +174,12 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'user_role' => '11',
-            'is_admin' => 1,
-            'is_superadmin' => 0,
+            'is_admin' => $request->isAdmin, //Constantly = 1
+            'is_superadmin' => $request->isSuperAdmin, //Constantly = 0
         ]);
     }else{
 
+        // return response()->json('Unauthorized access only the Super Admin can add an Admin.', $request->getCode());
         return response(['message' => 'Unauthorized access only the Super Admin can add an Admin']);
     }
 
