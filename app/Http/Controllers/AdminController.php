@@ -65,14 +65,14 @@ class AdminController extends Controller
                 $user->save();
                 return response([
                     'user' => $user,
-                    'message' => 'Admin unbloked',
+                    'message' => 'User unbloked',
                     ]);
              }elseif($user->is_active == 1){
                 $user->is_active = 0;
                 $user->save();
                 return response([
                     'user' => $user,
-                    'message' => 'Admin Bloked',
+                    'message' => 'User Bloked',
                     ]);
              }
 
@@ -80,7 +80,7 @@ class AdminController extends Controller
 
         else{
 
-            return response(['message' => 'Unauthorized access only the Super Admin has can add an Admin']);
+            return response(['message' => 'Unauthorized access ']);
         }
 
         // return response([

@@ -29,6 +29,13 @@ class UserController extends Controller
         return response($allUser);
     }
 
+    public function totaluser()
+    {
+        $allUser = User::all()->get();
+        // dd($user);
+        return response($allUser);
+    }
+
 
     /**
      * Store a newly created resource in storage.
