@@ -117,7 +117,7 @@ class AuthController extends Controller
 
     public function adminRegister(Request $request)
     {
-        $admin = User::find(Auth::user()->id);
+        // $admin = User::find(Auth::user()->id);
         $request->validate([
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
@@ -152,15 +152,33 @@ class AuthController extends Controller
         //     'is_admin' => $request->isAdmin, //Constantly = 1
         //     'is_superadmin' => $request->isSuperAdmin, //Constantly = 1
         // ]);
+        $admin = new User([
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'user_role' => '10',
+            // 'is_admin' => 1,
+            // 'is_superadmin' => 1
+            'is_admin' => $request->isAdmin, //Constantly = 1
+            'is_superadmin' => $request->isSuperAdmin, //Constantly = 1
+        ]);
 
-        $admin->email = $request->email;
-        $admin->password = Hash::make($request->password);
-        $admin->user_role = '10';
-        $admin->is_admin = 1;
-        $admin->is_superadmin = 1;
+        // $admin->email = $request->email;
+        // $admin->password = Hash::make($request->password);
+        // $admin->user_role = '10';
+        // $admin->is_admin = 1;
+        // $admin->is_superadmin = 1;
 
         $admin->save();
-        return response($admin);
+        $admin1 = User::find($admin->id);
+        if($admin1->is_admin == 0){
+            $admin1->is_admin = 1;
+        }
+        if($admin1->is_superadmin == 0){
+            $admin1->is_superadmin = 1;
+            $admin1->save();
+        }
+
+        return response($admin1);
 
     }
 
