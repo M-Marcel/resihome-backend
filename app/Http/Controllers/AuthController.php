@@ -197,7 +197,17 @@ class AuthController extends Controller
             'isSuperAdmin' => 'required|integer'
         ]);
 
-        return User::create([
+        // return User::create([
+        //     'firstname' => $request->firstName,
+        //     'lastname' => $request->lastName,
+        //     'email' => $request->email,
+        //     'password' => Hash::make($request->password),
+        //     'user_role' => '11',
+        //     'is_admin' => $request->isAdmin, //Constantly = 1
+        //     'is_superadmin' => $request->isSuperAdmin, //Constantly = 0
+        // ]);
+
+        $admin1 = new User([
             'firstname' => $request->firstName,
             'lastname' => $request->lastName,
             'email' => $request->email,
@@ -206,11 +216,28 @@ class AuthController extends Controller
             'is_admin' => $request->isAdmin, //Constantly = 1
             'is_superadmin' => $request->isSuperAdmin, //Constantly = 0
         ]);
+
+
+        $admin1->save();
+        $admin2 = User::find($admin1->id);
+        if($admin2->is_admin == 0){
+            $admin2->is_admin = 1;
+        }
+        if($admin2->is_superadmin == 0){
+            $admin2->is_superadmin = 1;
+            $admin2->save();
+        }
+
+        return response($admin2);
+
+
     }else{
 
         // return response()->json('Unauthorized access only the Super Admin can add an Admin.', $request->getCode());
         return response(['message' => 'Unauthorized access only the Super Admin can add an Admin']);
     }
+
+    
 
     }
     // public function adminRegister(Request $request)
