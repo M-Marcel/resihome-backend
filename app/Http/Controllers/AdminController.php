@@ -89,6 +89,88 @@ class AdminController extends Controller
         //     ]);
     }
 
+    public function blockAdmin($id)
+    {
+        $admin = Admin::find(Auth::user()->id);
+        // $request->validate([
+        //     'id' => 'required|integer',
+        // ]);
+// dd($id);
+        if ($admin->is_superadmin == 1){
+
+            $user = Admin::findOrFail($id);
+             if($user->is_admin == 0){
+                $user->is_admin = 1;
+                $user->save();
+                return response([
+                    'user' => $user,
+                    'message' => 'Admin unbloked',
+                    ]);
+             }elseif($user->is_admin == 1){
+                $user->is_admin = 0;
+                $user->save();
+                return response([
+                    'user' => $user,
+                    'message' => 'Admin Blocked',
+                    ]);
+             }
+
+        }
+
+        else{
+
+            return response(['message' => 'Unauthorized access only the Super Admin has can add an Admin']);
+        }
+
+        // return response([
+        //     'user' => $user,
+        //     'message' => 'User Bloked',
+        //     ]);
+    }
+
+    public function adminSwitch()
+    {
+        $user = Admin::findOrFail(Auth::user()->id);
+             if($user->is_admin == 0){
+                $user->is_admin = 1;
+                $user->save();
+                return response([
+                    'user' => $user,
+                    'message' => 'User upgraded to an admin',
+                    ]);
+             }elseif($user->is_admin == 1){
+                $user->is_admin = 0;
+                $user->save();
+                return response([
+                    'user' => $user,
+                    'message' => 'Admin demoted to user',
+                    ]);
+             }
+
+        }
+
+    public function superAdminSwitch()
+    {
+        $user = Admin::findOrFail(Auth::user()->id);
+             if($user->is_superadmin == 0){
+                $user->is_superadmin = 1;
+                $user->save();
+                return response([
+                    'user' => $user,
+                    'message' => 'Admin upgraded to an SuperAdmin',
+                    ]);
+             }elseif($user->is_superadmin == 1){
+                $user->is_superadmin = 0;
+                $user->save();
+                return response([
+                    'user' => $user,
+                    'message' => 'SuperAdmin demoted to Admin',
+                    ]);
+             }
+
+        }
+
+
     /**
      * Store a newly created resource in storage.
      *
