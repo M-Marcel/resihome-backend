@@ -153,9 +153,9 @@ class AuthController extends Controller
         //     'is_superadmin' => $request->isSuperAdmin, //Constantly = 1
         // ]);
 
-        $admin->email => $request->email,
-        $admin->password => Hash::make($request->password),
-        $admin->user_role => '10',
+        $admin->email = $request->email,
+        $admin->password = Hash::make($request->password),
+        $admin->user_role = '10',
         $admin->is_admin = 1;
         $admin->is_superadmin = 1;
 
