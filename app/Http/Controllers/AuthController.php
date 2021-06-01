@@ -222,11 +222,9 @@ class AuthController extends Controller
         $admin2 = User::find($admin1->id);
         if($admin2->is_admin == 0){
             $admin2->is_admin = 1;
-        }
-        if($admin2->is_superadmin == 0){
-            $admin2->is_superadmin = 1;
             $admin2->save();
         }
+        
 
         return response($admin2);
 
