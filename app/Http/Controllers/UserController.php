@@ -24,17 +24,18 @@ class UserController extends Controller
 
     public function allUser()
     {
-        $allUser = User::whereIs_superadmin(0)->get();
-        // dd($user);
-        return response($allUser);
-    }
-
-    public function totaluser()
-    {
+        
         $allUser = User::all();
         // dd($user);
         return response($allUser);
     }
+
+    // public function totaluser()
+    // {
+    //     $allUser = User::whereIs_superadmin(0)->get();
+    //     // dd($user);
+    //     return response($allUser);
+    // }
 
 
     /**

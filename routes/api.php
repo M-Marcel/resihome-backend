@@ -113,7 +113,7 @@ Route::get('/imageAll', 'Property\PropertyImageController@index');
 // Route::get('/testImage', 'Property\PropertyImageController@index');
 Route::get('/imageShow/{imageId}', 'Property\PropertyImageController@show');
 Route::get('/allUser', 'UserController@allUser');
-Route::get('/totaluser', 'UserController@totaluser');
+// Route::get('/totaluser', 'UserController@totaluser');
 
 
 
