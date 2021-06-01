@@ -31,7 +31,7 @@ class UserController extends Controller
 
     public function totaluser()
     {
-        $allUser = User::all()->get();
+        $allUser = User::all();
         // dd($user);
         return response($allUser);
     }
