@@ -160,7 +160,7 @@ class AuthController extends Controller
         $admin->is_superadmin = 1;
 
         $admin->save();
-        return response($user);
+        return response($admin);
 
     }
 
